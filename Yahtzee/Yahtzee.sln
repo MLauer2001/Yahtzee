@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yahtzee.BL", "Yahtzee.BL\Yahtzee.BL.csproj", "{3F40B1A3-C5ED-47A6-8D6B-4130CCF87ADF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yahtzee.BL.Models", "Yahtzee.BL.Models\Yahtzee.BL.Models.csproj", "{A52B5363-78AE-4100-AD1E-503C853DD24D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F40B1A3-C5ED-47A6-8D6B-4130CCF87ADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F40B1A3-C5ED-47A6-8D6B-4130CCF87ADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F40B1A3-C5ED-47A6-8D6B-4130CCF87ADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F40B1A3-C5ED-47A6-8D6B-4130CCF87ADF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A52B5363-78AE-4100-AD1E-503C853DD24D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A52B5363-78AE-4100-AD1E-503C853DD24D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A52B5363-78AE-4100-AD1E-503C853DD24D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A52B5363-78AE-4100-AD1E-503C853DD24D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {80890B1D-052A-4D30-AB9C-D5452311398A}
+	EndGlobalSection
+EndGlobal
