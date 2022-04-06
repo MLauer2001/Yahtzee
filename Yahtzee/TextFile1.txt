@@ -1,2 +1,23 @@
 Test commit - Riley
 Test commit - Matthew
+
+-------------------------------------------- PACKAGE INFO -------------------------------------------
+
+Install-Package Microsoft.EntityFrameworkCore.SqlServer -version 5.0
+Install-Package Microsoft.EntityFrameworkCore.Tools -version 5.0
+Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design -version 5.0
+
+Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=RCW.VehicleTracker.DB;Integrated Security=true" Microsoft.EntityFrameworkCore.SqlServer -Context VehicleEntities -UseDatabaseNames -force
+
+Microsoft.AspNetCore.TestHost
+
+SignalR - Microsoft.AspNetCore.SignalR.Client
+
+.\ngrok http https://localhost:44350 -host-header="localhost:44350"
+
+---------------------- Logging to the Database -------------------------------
+
+Install-Package Serilog
+Install-Package Serilog.Settings.Configuration
+Install-Package Serilog.Sinks.MSSqlServer
+Install-Package Serilog.Extensions.Logging

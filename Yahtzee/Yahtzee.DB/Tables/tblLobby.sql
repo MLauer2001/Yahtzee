@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[tblLobby]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [MaxPlayer] INT NOT NULL, 
+    [LobbyName] VARCHAR(50) NOT NULL
+)

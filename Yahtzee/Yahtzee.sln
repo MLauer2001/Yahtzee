@@ -3,14 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yahtzee.BL", "Yahtzee.BL\Yahtzee.BL.csproj", "{3F40B1A3-C5ED-47A6-8D6B-4130CCF87ADF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yahtzee.BL", "Yahtzee.BL\Yahtzee.BL.csproj", "{3F40B1A3-C5ED-47A6-8D6B-4130CCF87ADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yahtzee.BL.Models", "Yahtzee.BL.Models\Yahtzee.BL.Models.csproj", "{A52B5363-78AE-4100-AD1E-503C853DD24D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yahtzee.BL.Models", "Yahtzee.BL.Models\Yahtzee.BL.Models.csproj", "{A52B5363-78AE-4100-AD1E-503C853DD24D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Soultion Items", "Soultion Items", "{92F22240-9A33-412D-8BF7-ECB6F3595FF0}"
 	ProjectSection(SolutionItems) = preProject
 		TextFile1.txt = TextFile1.txt
 	EndProjectSection
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Yahtzee.DB", "Yahtzee.DB\Yahtzee.DB.sqlproj", "{23678028-D4FE-474D-BF6D-2997B7C6C609}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,12 @@ Global
 		{A52B5363-78AE-4100-AD1E-503C853DD24D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A52B5363-78AE-4100-AD1E-503C853DD24D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A52B5363-78AE-4100-AD1E-503C853DD24D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23678028-D4FE-474D-BF6D-2997B7C6C609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23678028-D4FE-474D-BF6D-2997B7C6C609}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23678028-D4FE-474D-BF6D-2997B7C6C609}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{23678028-D4FE-474D-BF6D-2997B7C6C609}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23678028-D4FE-474D-BF6D-2997B7C6C609}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23678028-D4FE-474D-BF6D-2997B7C6C609}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

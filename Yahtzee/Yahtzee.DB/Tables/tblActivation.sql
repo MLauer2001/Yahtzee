@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[tblActivation]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [LobbyId] UNIQUEIDENTIFIER NOT NULL, 
+    [Password] VARCHAR(10) NOT NULL, 
+    [StartDate] DATETIME NOT NULL, 
+    [EndDate] DATETIME NOT NULL
+)
