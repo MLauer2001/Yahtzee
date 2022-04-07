@@ -70,6 +70,7 @@
     <Build Include="Tables\tblUserLobby.sql" />
     <Build Include="Tables\tblActivation.sql" />
     <Build Include="Tables\tblLobby.sql" />
+    <Build Include="StoredProcedures\spGetActivations.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Yahtzee.DB.refactorlog" />
