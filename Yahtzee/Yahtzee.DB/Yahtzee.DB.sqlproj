@@ -66,7 +66,6 @@
   <ItemGroup>
     <Build Include="Tables\tblUser.sql" />
     <Build Include="Tables\tblScorecard.sql" />
-    <Build Include="Tables\tblStats.sql" />
     <Build Include="Tables\tblUserLobby.sql" />
     <Build Include="Tables\tblActivation.sql" />
     <Build Include="Tables\tblLobby.sql" />
@@ -76,8 +75,8 @@
     <RefactorLog Include="Yahtzee.DB.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ForeignKeys\fkUserId_Scorecard.sql" />
+    <None Include="ForeignKeys\fkUserId.sql" />
     <None Include="ForeignKeys\fkLobbyId.sql" />
-    <None Include="ForeignKeys\fkUserId_Stats.sql" />
+    <None Include="ForeignKeys\fkScoreboardId.sql" />
   </ItemGroup>
 </Project>

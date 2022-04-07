@@ -3,6 +3,7 @@
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
     [FirstName] VARCHAR(50) NOT NULL, 
     [LastName] VARCHAR(50) NOT NULL, 
+    [Email] VARCHAR(150) NOT NULL, 
     [Username] VARCHAR(20) NOT NULL, 
-    [Email] VARCHAR(150) NOT NULL
+    [Password] VARCHAR(25) NOT NULL
 )
