@@ -2,7 +2,6 @@
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
     [UserId] UNIQUEIDENTIFIER NOT NULL, 
-    [GameNo] INT NOT NULL, 
     [Aces] BIT NOT NULL, 
     [Twos] BIT NOT NULL, 
     [Threes] BIT NOT NULL, 
