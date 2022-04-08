@@ -78,5 +78,15 @@
     <None Include="ForeignKeys\fkUserId.sql" />
     <None Include="ForeignKeys\fkLobbyId.sql" />
     <None Include="ForeignKeys\fkScoreboardId.sql" />
+    <None Include="PostDeployment\DefaultData\Users.sql" />
+    <None Include="PostDeployment\DefaultData\Lobbies.sql" />
+    <None Include="PostDeployment\DefaultData\Activations.sql" />
+    <None Include="PostDeployment\DefaultData\UserLobbies.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="PreDeployment\Script.PreDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeployment\Script.PostDeployment1.sql" />
   </ItemGroup>
 </Project>
