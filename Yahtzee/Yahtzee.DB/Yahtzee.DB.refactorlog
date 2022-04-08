@@ -28,4 +28,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="KeyCode" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="1628ec27-32b4-4384-92f1-c1824cd347ad" ChangeDateTime="04/08/2022 05:43:14">
+    <Property Name="ElementName" Value="[dbo].[tblScorecard].[3ofKind]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblScorecard]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ThreeofKind" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5e2bdbd1-7667-4416-9b95-921102e9ddc3" ChangeDateTime="04/08/2022 05:43:19">
+    <Property Name="ElementName" Value="[dbo].[tblScorecard].[4ofKind]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblScorecard]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FourofKind" />
+  </Operation>
 </Operations>
