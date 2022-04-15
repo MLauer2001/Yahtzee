@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Data.SqlClient;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Yahtzee.PL.Test
 {
@@ -88,6 +90,14 @@ namespace Yahtzee.PL.Test
                 int actual = dc.SaveChanges();
                 Assert.AreNotEqual(0, actual);
             }
+        }
+
+        [TestMethod]
+        public void GetActivations()
+        {
+            var results = dc.Set<spGetActivationsResult>().FromSqlRaw("exec spGetActivations").ToList();
+
+            Assert.IsTrue(results.Count > 0);
         }
     }
 }

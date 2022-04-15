@@ -15,6 +15,7 @@ namespace Yahtzee.PL
         public YahtzeeEntities(DbContextOptions<YahtzeeEntities> options)
             : base(options)
         {
+           
         }
 
         public virtual DbSet<tblActivation> tblActivations { get; set; }
@@ -108,6 +109,8 @@ namespace Yahtzee.PL
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
             });
+
+            modelBuilder.Entity<spGetActivationsResult>().HasNoKey();
 
             OnModelCreatingPartial(modelBuilder);
         }
