@@ -8,6 +8,10 @@ namespace Yahtzee.PL
 {
     public class spGetActivationsResult
     {
-        public List<tblActivation> tblActivations { get; set; }
+        public Guid Id { get; set; }
+        public Guid LobbyId { get; set; }
+        public string KeyCode { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }
