@@ -2,51 +2,56 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Yahtzee.BL.Models;
 using Yahtzee.PL;
 
 namespace Yahtzee.BL
 {
-    public static class LobbyManager
+    public static class UserLobbyManager
     {
         #region "CRUD"
 
-        public async static Task<List<Lobby>> Load()
+        public async static Task<List<UserLobby>> Load()
         {
             using (var dc = new YahtzeeEntities())
             {
-                List<Lobby> lobbies = new List<Lobby>();
+                List<UserLobby> userLobbies = new List<UserLobby>();
 
-                dc.tblLobbies.ToList().ForEach(row => lobbies.Add(new Lobby()
+                dc.tblUserLobbies.ToList().ForEach(row => userLobbies.Add(new UserLobby()
                 {
                     Id = row.Id,
-                    LobbyName = row.LobbyName,
-                    MaxPlayers = row.MaxPlayer
+                    UserId = row.UserId,
+                    LobbyId = row.LobbyId,
+                    ScorecardId = row.ScorecardId
+
                 }));
 
-                return lobbies;
+                return userLobbies;
             }
         }
 
-        public async static Task<Lobby> LoadById(Guid id)
+        public async static Task<UserLobby> LoadById(Guid id)
         {
             using (var dc = new YahtzeeEntities())
             {
-                tblLobby row = dc.tblLobbies.FirstOrDefault(row => row.Id == id);
+                tblUserLobby row = dc.tblUserLobbies.FirstOrDefault(row => row.Id == id);
 
-                Lobby lobby = new Lobby()
+                UserLobby userLobby = new UserLobby()
                 {
                     Id = row.Id,
-                    LobbyName = row.LobbyName,
-                    MaxPlayers = row.MaxPlayer
+                    UserId = row.UserId,
+                    LobbyId = row.LobbyId,
+                    ScorecardId = row.ScorecardId
+
                 };
 
-                return lobby;
+                return userLobby;
             }
         }
 
-        public async static Task<int> Insert(Lobby lobby, bool rollback = false)
+        public async static Task<int> Insert(UserLobby userLobby, bool rollback = false)
         {
             try
             {
@@ -56,12 +61,14 @@ namespace Yahtzee.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblLobby newrow = new tblLobby();
-                    newrow.Id = lobby.Id;
-                    newrow.LobbyName = lobby.LobbyName;
-                    newrow.MaxPlayer = lobby.MaxPlayers;
+                    tblUserLobby newrow = new tblUserLobby();
+                    newrow.Id = userLobby.Id;
+                    newrow.UserId = userLobby.UserId;
+                    newrow.LobbyId = userLobby.LobbyId;
+                    newrow.ScorecardId = userLobby.ScorecardId;
+                    
 
-                    dc.tblLobbies.Add(newrow);
+                    dc.tblUserLobbies.Add(newrow);
                     result = dc.SaveChanges();
 
                     if (rollback) transaction.Rollback();
@@ -76,8 +83,7 @@ namespace Yahtzee.BL
             }
         }
 
-
-        public async static Task<int> Update(Lobby lobby, bool rollback = false)
+        public async static Task<int> Update(UserLobby userLobby, bool rollback = false)
         {
             try
             {
@@ -87,13 +93,15 @@ namespace Yahtzee.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblLobby updaterow = dc.tblLobbies.FirstOrDefault(row => row.Id == lobby.Id);
+                    tblUserLobby updaterow = dc.tblUserLobbies.FirstOrDefault(row => row.Id == userLobby.Id);
 
-                    if(updaterow != null)
+                    if (updaterow != null)
                     {
-                        updaterow.Id = lobby.Id;
-                        updaterow.LobbyName = lobby.LobbyName;
-                        updaterow.MaxPlayer = lobby.MaxPlayers;
+                        updaterow.Id = userLobby.Id;
+                        updaterow.UserId = userLobby.UserId;
+                        updaterow.LobbyId = userLobby.LobbyId;
+                        updaterow.ScorecardId = userLobby.ScorecardId;
+
 
                         result = dc.SaveChanges();
 
@@ -126,11 +134,11 @@ namespace Yahtzee.BL
                     IDbContextTransaction transaction = null;
                     if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblLobby deleterow = dc.tblLobbies.FirstOrDefault(row => row.Id == id);
+                    tblUserLobby deleterow = dc.tblUserLobbies.FirstOrDefault(row => row.Id == id);
 
                     if (deleterow != null)
                     {
-                        dc.tblLobbies.Remove(deleterow);
+                        dc.tblUserLobbies.Remove(deleterow);
                         result = dc.SaveChanges();
                     }
                     else

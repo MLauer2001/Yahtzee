@@ -45,6 +45,37 @@ namespace Yahtzee.BL
             }
         }
 
+        public async static Task<Scorecard> LoadById(Guid id)
+        {
+            using (var dc = new YahtzeeEntities())
+            {
+                tblScorecard row = dc.tblScorecards.FirstOrDefault(row => row.Id == id);
+
+                Scorecard scorecard = new Scorecard()
+                {
+                    Id = row.Id,
+                    UserId = row.UserId,
+                    Aces = row.Aces,
+                    Twos = row.Twos,
+                    Threes = row.Threes,
+                    Fours = row.Fours,
+                    Fives = row.Fives,
+                    Sixes = row.Sixes,
+                    Bonus = row.Bonus,
+                    ThreeOfKind = row.ThreeofKind,
+                    FourOfKind = row.FourofKind,
+                    FullHouse = row.FullHouse,
+                    SmStraight = row.SmStraight,
+                    LgStraight = row.LgStraight,
+                    Yahtzee = row.Yahtzee,
+                    Chance = row.Chance,
+                    GrandTotal = row.GrandTotal
+                };
+
+                return scorecard;
+            }
+        }
+
         public async static Task<int> Insert(Scorecard scorecard, bool rollback = false)
         {
             try
@@ -134,6 +165,40 @@ namespace Yahtzee.BL
 
                     return result;
 
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async static Task<int> Delete(Guid id, bool rollback = false)
+        {
+            try
+            {
+                using (YahtzeeEntities dc = new YahtzeeEntities())
+                {
+                    int result = 0;
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+
+                    tblScorecard deleterow = dc.tblScorecards.FirstOrDefault(row => row.Id == id);
+
+                    if (deleterow != null)
+                    {
+                        dc.tblScorecards.Remove(deleterow);
+                        result = dc.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("Row was not found.");
+                    }
+
+                    if (rollback) transaction.Rollback();
+
+                    return result;
                 }
             }
             catch (Exception ex)
