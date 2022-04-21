@@ -16,7 +16,9 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Yahtzee.DB", "Yahtzee.DB\Ya
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yahtzee.PL", "Yahtzee.PL\Yahtzee.PL.csproj", "{7502DB61-4B89-43AE-BFF7-3AA38093B5D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yahtzee.PL.Test", "Yahtzee.PL.Test\Yahtzee.PL.Test.csproj", "{5F8C8048-F862-407C-A2EA-181A046B1D56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yahtzee.PL.Test", "Yahtzee.PL.Test\Yahtzee.PL.Test.csproj", "{5F8C8048-F862-407C-A2EA-181A046B1D56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yahtzee.BL.Test", "Yahtzee.BL.Test\Yahtzee.BL.Test.csproj", "{F46F41B6-306B-4154-B987-F5189E044107}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{5F8C8048-F862-407C-A2EA-181A046B1D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F8C8048-F862-407C-A2EA-181A046B1D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F8C8048-F862-407C-A2EA-181A046B1D56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F46F41B6-306B-4154-B987-F5189E044107}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F46F41B6-306B-4154-B987-F5189E044107}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F46F41B6-306B-4154-B987-F5189E044107}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F46F41B6-306B-4154-B987-F5189E044107}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
