@@ -159,5 +159,10 @@ namespace Yahtzee.BL
         }
 
         #endregion
+
+        public static Task<int> Game()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

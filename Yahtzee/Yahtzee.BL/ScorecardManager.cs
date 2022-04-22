@@ -209,5 +209,15 @@ namespace Yahtzee.BL
         }
 
         #endregion
+
+        public static Task<int> RollDice()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Task<int> PickMove()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
