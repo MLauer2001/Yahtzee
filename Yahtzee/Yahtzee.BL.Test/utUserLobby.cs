@@ -50,12 +50,10 @@ namespace Yahtzee.BL.Test
         public void UpdateTest()
         {
             var task = UserLobbyManager.Load();
-            var task2 = ScorecardManager.Load();
             IEnumerable<UserLobby> userLobbies = task.Result;
-            IEnumerable<Scorecard> scorecards = task2.Result;
             task.Wait();
-            UserLobby userLobby = userLobbies.FirstOrDefault(c => c.ScorecardId == scorecards.FirstOrDefault().Id);
-            userLobby.ScorecardId = scorecards.LastOrDefault().Id;
+            UserLobby userLobby = userLobbies.FirstOrDefault();
+            userLobby.UserId = Guid.NewGuid();
             var results = UserLobbyManager.Update(userLobby, true);
             Assert.IsTrue(results.Result > 0);
 
