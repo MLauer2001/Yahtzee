@@ -215,6 +215,11 @@ namespace Yahtzee.BL
             throw new NotImplementedException();
         }
 
+        public static Task<int> HoldDice()
+        {
+            throw new NotImplementedException();
+        }
+        
         public static Task<int> PickMove()
         {
             throw new NotImplementedException();

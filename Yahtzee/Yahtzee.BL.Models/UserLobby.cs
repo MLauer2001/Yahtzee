@@ -12,5 +12,7 @@ namespace Yahtzee.BL.Models
         public Guid UserId { get; set; }
         public Guid LobbyId { get; set; }
         public Guid ScorecardId { get; set; }
+
+        public List<User> Users { get; set; }
     }
 }
