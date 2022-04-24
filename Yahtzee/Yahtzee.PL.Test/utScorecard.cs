@@ -44,20 +44,20 @@ namespace Yahtzee.PL.Test
             {
                 Id = Guid.NewGuid(),
                 UserId = dc.tblUsers.FirstOrDefault().Id,
-                Aces = false,
-                Twos = false,
-                Threes = false,
-                Fours = false,
-                Fives = false,
-                Sixes = false,
-                Bonus = false,
-                ThreeofKind = false,
-                FourofKind = false,
-                FullHouse = false,
-                SmStraight = false,
-                LgStraight = false,
-                Yahtzee = false,
-                Chance = false,
+                Aces = 0,
+                Twos = 0,
+                Threes = 0,
+                Fours = 0,
+                Fives = 0,
+                Sixes = 0,
+                Bonus = 0,
+                ThreeofKind = 0,
+                FourofKind = 0,
+                FullHouse = 0,
+                SmStraight = 0,
+                LgStraight = 0,
+                Yahtzee = 0,
+                Chance = 0,
                 GrandTotal = 0
             };
 
@@ -77,7 +77,7 @@ namespace Yahtzee.PL.Test
 
             if (existingScorecard != null)
             {
-                existingScorecard.Aces = false;
+                existingScorecard.Aces = 5;
                 dc.SaveChanges();
             }
 

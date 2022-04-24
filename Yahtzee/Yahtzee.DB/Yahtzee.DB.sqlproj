@@ -72,9 +72,6 @@
     <Build Include="StoredProcedures\spGetActivations.sql" />
   </ItemGroup>
   <ItemGroup>
-    <RefactorLog Include="Yahtzee.DB.refactorlog" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="ForeignKeys\fkUserId.sql" />
     <None Include="ForeignKeys\fkLobbyId.sql" />
     <None Include="ForeignKeys\fkScoreboardId.sql" />

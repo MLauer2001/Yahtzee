@@ -10,20 +10,20 @@ namespace Yahtzee.BL.Models
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public bool Aces { get; set; }
-        public bool Twos { get; set; }
-        public bool Threes { get; set; }
-        public bool Fours { get; set; }
-        public bool Fives { get; set; }
-        public bool Sixes { get; set; }
-        public bool Bonus { get; set; }
-        public bool ThreeOfKind { get; set; }
-        public bool FourOfKind { get; set; }
-        public bool FullHouse { get; set; }
-        public bool SmStraight { get; set; }
-        public bool LgStraight { get; set; }
-        public bool Yahtzee { get; set; }
-        public bool Chance { get; set; }
+        public int Aces { get; set; }
+        public int Twos { get; set; }
+        public int Threes { get; set; }
+        public int Fours { get; set; }
+        public int Fives { get; set; }
+        public int Sixes { get; set; }
+        public int Bonus { get; set; }
+        public int ThreeOfKind { get; set; }
+        public int FourOfKind { get; set; }
+        public int FullHouse { get; set; }
+        public int SmStraight { get; set; }
+        public int LgStraight { get; set; }
+        public int Yahtzee { get; set; }
+        public int Chance { get; set; }
         public int GrandTotal { get; set; }
     }
 }
