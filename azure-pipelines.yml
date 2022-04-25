@@ -22,9 +22,15 @@ steps:
     restoreSolution: '$(solution)'
 
 - task: DotNetCoreCLI@2
-  displayName: Test PL
+  displayName: Test BL
   inputs:
     command: test
     projects: 'Yahtzee.BL.Test/Yahtzee.BL.Test.csproj'
     arguments: '--configuration Debug'    
 
+- task: DotNetCoreCLI@2
+  displayName: Test PL
+  inputs:
+    command: test
+    projects: 'Yahtzee.PL.Test/Yahtzee.PL.Test.csproj'
+    arguments: '--configuration Debug' 
