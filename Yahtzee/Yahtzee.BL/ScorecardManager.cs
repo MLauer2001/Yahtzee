@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Yahtzee.BL.Models;
@@ -210,19 +211,42 @@ namespace Yahtzee.BL
 
         #endregion
 
-        public static Task<int> RollDice()
+
+        public static Task<Scorecard> Turn(User user, Scorecard scorecard)
         {
-            throw new NotImplementedException();
+            int rollsLeft = 3;
+            Die[] dice = new Die[5]; 
+            
+            while (rollsLeft > 1)
+            {
+                if(user == null)
+                {
+                    //CPU logic here
+                }
+                else
+                {
+                    //Player logic here
+                    RollDice(dice);
+                }
+
+
+                rollsLeft--;
+            }
+        }
+        public static Die[] RollDice(Die[] dice)
+        {
+            //Check for dice held
+            //Roll remaining dice that arent held
+            foreach (var die in dice)
+            {
+                if (die.Hold == false)
+                {
+                    die.Value = RandomNumberGenerator.GetInt32(1, 6);
+                }
+            }
+
+            return dice;
         }
 
-        public static Task<int> HoldDice()
-        {
-            throw new NotImplementedException();
-        }
-        
-        public static Task<int> PickMove()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

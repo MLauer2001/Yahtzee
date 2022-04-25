@@ -8,7 +8,11 @@ namespace Yahtzee.BL.Models
 {
     public class Die
     {
-        public Die() { }
+        public Die() 
+        {
+            this.Value = 6;
+            this.Hold = false;
+        }
 
         public int Value { get; set; }
         public bool Hold { get; set; }
