@@ -20,24 +20,10 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-
 - task: DotNetCoreCLI@2
-  displayName: Build Yahtzee BL
+  displayName: Build User Interface
   inputs:
     command: build
-    projects: 'Yahztee.BL/Yahtzee.BL.csproj'
-    arguments: '--configuration Debug'
-    
-- task: DotNetCoreCLI@2
-  displayName: Build Yahtzee BL Test
-  inputs:
-    command: test
-    projects: 'Yahztee.BL.Test/Yahtzee.BL.Test.csproj'
-    arguments: '--configuration Debug'
+    projects: 'Yahtzee.BL/Yahtzee.BL.csproj'
+    arguments: '--configuration Debug' 
 
-- task: DotNetCoreCLI@2
-  displayName: Build Yahtzee PL Test
-  inputs:
-    command: test
-    projects: 'Yahztee.PL.Test/Yahtzee.PL.Test.csproj'
-    arguments: '--configuration Debug'
