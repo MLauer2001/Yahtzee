@@ -1,0 +1,43 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: DotNetCoreCLI@2
+  displayName: Build Yahtzee BL
+  inputs:
+    command: build
+    projects: 'Yahztee.BL/Yahtzee.BL.csproj'
+    arguments: '--configuration Debug'
+    
+- task: DotNetCoreCLI@2
+  displayName: Build Yahtzee BL Test
+  inputs:
+    command: test
+    projects: 'Yahztee.BL.Test/Yahtzee.BL.Test.csproj'
+    arguments: '--configuration Debug'
+
+- task: DotNetCoreCLI@2
+  displayName: Build Yahtzee PL Test
+  inputs:
+    command: test
+    projects: 'Yahztee.PL.Test/Yahtzee.PL.Test.csproj'
+    arguments: '--configuration Debug'
