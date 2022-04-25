@@ -24,6 +24,6 @@ steps:
   displayName: Build User Interface
   inputs:
     command: build
-    projects: 'Yahtzee.BL/Yahtzee.BL.csproj'
+    projects: 'Yahtzee.BL/Yahtzee.sln'
     arguments: '--configuration Debug' 
 
