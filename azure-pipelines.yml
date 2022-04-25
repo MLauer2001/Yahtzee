@@ -24,6 +24,6 @@ steps:
   displayName: Build Business Layer
   inputs:
     command: build
-    projects: 'Yahtzee.BL\Yahtzee.BL.csproj'
+    projects: 'Yahtzee.BL/Yahtzee.BL.csproj'
     arguments: '--configuration Debug' 
 
