@@ -65,6 +65,25 @@ namespace Yahtzee.BL.Test
 
         }
         [TestMethod]
+        public void UpdateByUserIdTest()
+        {
+            using(PL.YahtzeeEntities dc = new PL.YahtzeeEntities())
+            {
+                Guid userId = dc.tblUsers.FirstOrDefault(u => u.Username == "RWuest").Id;
+
+                var task = ScorecardManager.Load();
+                IEnumerable<Scorecard> scorecards = task.Result;
+                task.Wait();
+                Scorecard scorecard = scorecards.FirstOrDefault(c => c.UserId == userId);
+                scorecard.GrandTotal = 100;
+                var results = ScorecardManager.Update(scorecard, true);
+                Assert.IsTrue(results.Result > 0);
+            }
+            
+            
+
+        }
+        [TestMethod]
         public void DeleteTest()
         {
             Task.Run(async () =>

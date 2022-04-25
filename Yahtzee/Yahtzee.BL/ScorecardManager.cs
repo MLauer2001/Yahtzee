@@ -136,7 +136,6 @@ namespace Yahtzee.BL
                     if (updaterow != null)
                     {
                         updaterow.Id = scorecard.Id;
-                        updaterow.Id = scorecard.Id;
                         updaterow.UserId = scorecard.UserId;
                         updaterow.Aces = scorecard.Aces;
                         updaterow.Twos = scorecard.Twos;
@@ -212,27 +211,82 @@ namespace Yahtzee.BL
         #endregion
 
 
-        public static Task<Scorecard> Turn(User user, Scorecard scorecard)
+        public async static Task<int> UpdateByUserId(Guid userId, Scorecard scorecard, bool rollback = false)
         {
-            int rollsLeft = 3;
-            Die[] dice = new Die[5]; 
-            
-            while (rollsLeft > 1)
+            try
             {
-                if(user == null)
+                using (YahtzeeEntities dc = new YahtzeeEntities())
                 {
-                    //CPU logic here
-                }
-                else
-                {
-                    //Player logic here
-                    RollDice(dice);
-                }
+                    int result = 0;
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
 
+                    tblScorecard updaterow = dc.tblScorecards.FirstOrDefault(row => row.UserId == userId);
 
-                rollsLeft--;
+                    if (updaterow != null)
+                    {
+                        updaterow.Id = scorecard.Id;
+                        updaterow.UserId = scorecard.UserId;
+                        updaterow.Aces = scorecard.Aces;
+                        updaterow.Twos = scorecard.Twos;
+                        updaterow.Threes = scorecard.Threes;
+                        updaterow.Fours = scorecard.Fours;
+                        updaterow.Fives = scorecard.Fives;
+                        updaterow.Sixes = scorecard.Sixes;
+                        updaterow.Bonus = scorecard.Bonus;
+                        updaterow.ThreeofKind = scorecard.ThreeOfKind;
+                        updaterow.FourofKind = scorecard.FourOfKind;
+                        updaterow.FullHouse = scorecard.FullHouse;
+                        updaterow.SmStraight = scorecard.SmStraight;
+                        updaterow.LgStraight = scorecard.LgStraight;
+                        updaterow.Yahtzee = scorecard.Yahtzee;
+                        updaterow.Chance = scorecard.Chance;
+                        updaterow.GrandTotal = scorecard.GrandTotal;
+
+                        result = dc.SaveChanges();
+
+                    }
+                    else
+                    {
+                        throw new Exception("Row could not be found!");
+                    }
+
+                    if (rollback) transaction.Rollback();
+
+                    return result;
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
             }
         }
+
+
+        //public static Task<Scorecard> Turn(User user, Scorecard scorecard)
+        //{
+        //    int rollsLeft = 3;
+        //    Die[] dice = new Die[5]; 
+            
+        //    while (rollsLeft > 1)
+        //    {
+        //        if(user == null)
+        //        {
+        //            //CPU logic here
+        //        }
+        //        else
+        //        {
+        //            //Player logic here
+        //            RollDice(dice);
+        //        }
+
+
+        //        rollsLeft--;
+        //    }
+        //}
+
         public static Die[] RollDice(Die[] dice)
         {
             //Check for dice held

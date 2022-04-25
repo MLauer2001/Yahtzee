@@ -21,3 +21,10 @@ Install-Package Serilog
 Install-Package Serilog.Settings.Configuration
 Install-Package Serilog.Sinks.MSSqlServer
 Install-Package Serilog.Extensions.Logging
+
+
+CONTROLLERS TO PUT IN API
+Scorecard
+Activation
+User
+Lobby
