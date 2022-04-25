@@ -21,7 +21,7 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 - task: DotNetCoreCLI@2
-  displayName: Build User Interface
+  displayName: Build Business Layer
   inputs:
     command: build
     projects: 'Yahtzee.BL\Yahtzee.BL.csproj'
