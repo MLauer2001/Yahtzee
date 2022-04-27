@@ -1,6 +1,6 @@
 using System;
 
-namespace Yahtzee.API
+namespace Yahztee.API
 {
     public class WeatherForecast
     {

@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Yahtzee.API
+namespace Yahztee.API
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace Yahtzee.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Yahtzee.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Yahztee.API", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace Yahtzee.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yahtzee.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yahztee.API v1"));
             }
 
             app.UseHttpsRedirection();

@@ -4,8 +4,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:43308",
-      "sslPort": 44364
+      "applicationUrl": "http://localhost:60454",
+      "sslPort": 44391
     }
   },
   "profiles": {
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Yahtzee.API": {
+    "Yahztee.API": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

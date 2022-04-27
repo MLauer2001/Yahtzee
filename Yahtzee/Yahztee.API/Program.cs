@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Yahtzee.API
+namespace Yahztee.API
 {
     public class Program
     {
