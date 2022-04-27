@@ -1,47 +1,72 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yahtzee.BL;
+using Yahtzee.BL.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Yahztee.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class LobbyController : ControllerBase
     {
-        // GET: api/<LobbyController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<Lobby>>> Get()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                return Ok(await LobbyManager.Load());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
-        // GET api/<LobbyController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        //For the url. Passing in ID
+        [HttpPost("{rollback?}")]
+        public async Task<IActionResult> Post([FromBody] Lobby Lobby, bool rollback = false)
         {
-            return "value";
+            try
+            {
+                await LobbyManager.Insert(Lobby, rollback);
+                return Ok(Lobby.Id);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
-        // POST api/<LobbyController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPut("{id}/{rollback?}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody] Lobby Lobby, bool rollback = false)
         {
+            try
+            {
+                return Ok(await LobbyManager.Update(Lobby, rollback));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
-        // PUT api/<LobbyController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpDelete("{id}/{rollback?}")]
+        public async Task<IActionResult> Delete(Guid id, bool rollback = false)
         {
-        }
-
-        // DELETE api/<LobbyController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            try
+            {
+                return Ok(await LobbyManager.Delete(id, rollback));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
     }
 }
