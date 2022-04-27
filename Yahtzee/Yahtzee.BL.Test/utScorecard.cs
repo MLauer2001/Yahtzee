@@ -20,6 +20,25 @@ namespace Yahtzee.BL.Test
                 Assert.IsTrue(scorecards.ToList().Count > 0);
             }).GetAwaiter().GetResult();
         }
+
+        [TestMethod]
+        public void LoadByIdTest()
+        {
+            List<Scorecard> scorecards = ScorecardManager.Load().Result;
+            Guid id = scorecards.FirstOrDefault().Id;
+            Scorecard scorecard = ScorecardManager.LoadById(id).Result;
+            Assert.IsTrue(scorecard.Id != Guid.Empty);
+        }
+
+        [TestMethod]
+        public void LoadByUserIdTest()
+        {
+            List<Scorecard> scorecards = ScorecardManager.Load().Result;
+            Guid userId = scorecards.FirstOrDefault().UserId;
+            Scorecard scorecard = ScorecardManager.LoadByUserId(userId).Result;
+            Assert.IsTrue(scorecard.Id != Guid.Empty);
+        }
+
         [TestMethod]
         public void InsertTest()
         {

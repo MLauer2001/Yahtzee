@@ -77,6 +77,37 @@ namespace Yahtzee.BL
             }
         }
 
+        public async static Task<Scorecard> LoadByUserId(Guid userId)
+        {
+            using (var dc = new YahtzeeEntities())
+            {
+                tblScorecard row = dc.tblScorecards.FirstOrDefault(row => row.UserId == userId);
+
+                Scorecard scorecard = new Scorecard()
+                {
+                    Id = row.Id,
+                    UserId = row.UserId,
+                    Aces = row.Aces,
+                    Twos = row.Twos,
+                    Threes = row.Threes,
+                    Fours = row.Fours,
+                    Fives = row.Fives,
+                    Sixes = row.Sixes,
+                    Bonus = row.Bonus,
+                    ThreeOfKind = row.ThreeofKind,
+                    FourOfKind = row.FourofKind,
+                    FullHouse = row.FullHouse,
+                    SmStraight = row.SmStraight,
+                    LgStraight = row.LgStraight,
+                    Yahtzee = row.Yahtzee,
+                    Chance = row.Chance,
+                    GrandTotal = row.GrandTotal
+                };
+
+                return scorecard;
+            }
+        }
+
         public async static Task<int> Insert(Scorecard scorecard, bool rollback = false)
         {
             try

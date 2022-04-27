@@ -27,6 +27,18 @@ namespace Yahztee.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Scorecard>> Get(Guid id)
+        {
+            try
+            {
+                return Ok(await ScorecardManager.LoadById(id));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
         //For the url. Passing in ID
         [HttpPost("{rollback?}")]
@@ -56,7 +68,7 @@ namespace Yahztee.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-        [HttpPut("{userId}/{rollback?")]
+        [HttpPut("{userId}/{rollback?}")]
         public async Task<IActionResult> Put(Guid userId, [FromBody] Scorecard scorecard, bool rollback = false)
         {
             try
