@@ -81,6 +81,7 @@
     <None Include="PostDeployment\DefaultData\UserLobbies.sql" />
     <None Include="PostDeployment\DefaultData\Scorecards.sql" />
     <None Include="local.publish.xml" />
+    <None Include="remote.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="PreDeployment\Script.PreDeployment1.sql" />
