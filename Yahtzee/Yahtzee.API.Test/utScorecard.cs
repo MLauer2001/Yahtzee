@@ -164,7 +164,68 @@ namespace Yahtzee.API.Test
             string serialziedQuestion = JsonConvert.SerializeObject(scorecard);
             var content = new StringContent(serialziedQuestion);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            HttpResponseMessage response = client.PutAsync("Scorecard/" + guid.Id + "/" + rollback, content).Result;
+            HttpResponseMessage response = client.PutAsync("Scorecard/" + scorecard.Id + "/" + rollback, content).Result;
+            string result = response.Content.ReadAsStringAsync().Result;
+
+            result = result.Replace("\"", "");
+
+            Assert.IsTrue(result == "1");
+        }
+
+        [TestMethod]
+        public void PutUserIdTest()
+        {
+            // Get Id
+            HttpResponseMessage responseA;
+            string resultA;
+            dynamic itemsA;
+
+            responseA = client.GetAsync("Scorecard").Result;
+            resultA = responseA.Content.ReadAsStringAsync().Result;
+            itemsA = (JArray)JsonConvert.DeserializeObject(resultA);
+            List<Scorecard> scorecards = itemsA.ToObject<List<Scorecard>>();
+            Scorecard guid = scorecards[0];
+            Guid userId = guid.UserId;
+
+            //// Get UserId
+            //HttpResponseMessage responseL;
+            //string resultL;
+            //dynamic itemsL;
+
+            //responseL = client.GetAsync("User").Result;
+            //resultL = responseL.Content.ReadAsStringAsync().Result;
+            //itemsL = (JArray)JsonConvert.DeserializeObject(resultL);
+            //List<User> users = itemsL.ToObject<List<User>>();
+            //User user = users[0];
+
+            Scorecard scorecard = new Scorecard
+            {
+                Id = guid.Id,
+                UserId = userId,
+                Aces = 0,
+                Twos = 0,
+                Threes = 0,
+                Fours = 0,
+                Fives = 0,
+                Sixes = 0,
+                ThreeOfKind = 0,
+                FourOfKind = 0,
+                SmStraight = 0,
+                LgStraight = 0,
+                FullHouse = 0,
+                Chance = 0,
+                Yahtzee = 0,
+                Bonus = 0,
+                GrandTotal = 0
+            };
+
+            bool rollback = true;
+            bool run = true;
+
+            string serialziedQuestion = JsonConvert.SerializeObject(scorecard);
+            var content = new StringContent(serialziedQuestion);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            HttpResponseMessage response = client.PutAsync("Scorecard/" + userId + "/" + rollback + "/" + run, content).Result;
             string result = response.Content.ReadAsStringAsync().Result;
 
             result = result.Replace("\"", "");

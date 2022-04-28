@@ -68,12 +68,13 @@ namespace Yahztee.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-        [HttpPut("{userId}/{rollback?}")]
-        public async Task<IActionResult> Put(Guid userId, [FromBody] Scorecard scorecard, bool rollback = false)
+
+        [HttpPut("{userId}/{rollback?}/{run}")]
+        public async Task<IActionResult> Put(Guid userId, [FromBody] Scorecard scorecard, bool rollback = false, bool run = true)
         {
             try
             {
-                return Ok(await ScorecardManager.UpdateByUserId(userId, scorecard));
+                return Ok(await ScorecardManager.UpdateByUserId(userId, scorecard, rollback));
             }
             catch (Exception ex)
             {
