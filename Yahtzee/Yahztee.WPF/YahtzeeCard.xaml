@@ -48,6 +48,16 @@
         <TextBlock HorizontalAlignment="Left"  Margin="301,422,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102"><Run Text="35 points if total is 63 o"/><Run Text="r over"/></TextBlock>
         <Button x:Name="btnYahtzeeBonus" IsEnabled="False" Content="Yahtzee Bonus" HorizontalAlignment="Left" Margin="617,456,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnChance_Click"/>
         <Label x:Name="lblChance_Copy" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="502,456,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
-
+        <Image Source="DiceImg/six.png" Name="Die1" Margin="101,24,635,421"></Image>
+        <Image Source="/DiceImg/six.png" x:Name="Die1_Copy" Margin="232,24,504,421"/>
+        <Image Source="/DiceImg/six.png" x:Name="Die1_Copy1" Margin="365,24,371,421"/>
+        <Image Source="/DiceImg/six.png" x:Name="Die1_Copy2" Margin="499,24,237,421"/>
+        <Image Source="/DiceImg/six.png" x:Name="Die1_Copy3" Margin="633,24,103,421"/>
+        <Button x:Name="btnHold1" Content="Hold" HorizontalAlignment="Left" Margin="116,119,0,0" VerticalAlignment="Top" Width="56"/>
+        <Button x:Name="btnHold2" Content="Hold" HorizontalAlignment="Left" Margin="247,119,0,0" VerticalAlignment="Top" Width="56"/>
+        <Button x:Name="btnHold3" Content="Hold" HorizontalAlignment="Left" Margin="380,119,0,0" VerticalAlignment="Top" Width="56"/>
+        <Button x:Name="btnHold4" Content="Hold" HorizontalAlignment="Left" Margin="517,119,0,0" VerticalAlignment="Top" Width="56"/>
+        <Button x:Name="btnHold1_Copy" Content="Hold" HorizontalAlignment="Left" Margin="648,119,0,0" VerticalAlignment="Top" Width="56"/>
+        <TextBlock HorizontalAlignment="Left"  Margin="395,453,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102"><Run Text="35 points if total is 63 o"/><Run Text="r over"/></TextBlock>
     </Grid>
 </Window>
