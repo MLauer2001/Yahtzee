@@ -59,5 +59,11 @@ namespace Yahtzee.BL.Test
 
             });
         }
+
+        [TestMethod()]
+        public void LoginTestSuccess()
+        {
+            Assert.IsTrue(UserManager.Login(new Models.User("MLauer", "lauerm")));
+        }
     }
 }

@@ -9,6 +9,16 @@ using Yahtzee.PL;
 
 namespace Yahtzee.BL
 {
+    public class LoginFailureException : Exception
+    {
+        public LoginFailureException() : base("ERROR: Cannot log in with these credentials.")
+        {
+        }
+        public LoginFailureException(string message) : base(message)
+        {
+        }
+    }
+
     public static class UserManager
     {
         #region "CRUD"
@@ -85,7 +95,6 @@ namespace Yahtzee.BL
                 throw new Exception(ex.Message);
             }
         }
-
 
         public async static Task<int> Update(User user, bool rollback = false)
         {
@@ -164,6 +173,55 @@ namespace Yahtzee.BL
         }
 
         #endregion
+
+        public static bool Login(User user)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(user.Username))
+                {
+                    if (!string.IsNullOrEmpty(user.Password))
+                    {
+                        using (YahtzeeEntities dc = new YahtzeeEntities())
+                        {
+                            tblUser tbluser = dc.tblUsers.FirstOrDefault(u => u.Username == user.Username);
+                            if (tbluser != null)
+                            {
+                                if (tbluser.Password == user.Password)
+                                {
+                                    user.FirstName = tbluser.FirstName;
+                                    user.LastName = tbluser.LastName;
+                                    user.Email = tbluser.Email;
+                                    user.Id = tbluser.Id;
+                                    return true;
+                                }
+                                else
+                                {
+                                    throw new LoginFailureException();
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("User Id could not be found.");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Password was not set.");
+                    }
+                }
+                else
+                {
+                    throw new Exception("User Id was not set.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
     }
 }
