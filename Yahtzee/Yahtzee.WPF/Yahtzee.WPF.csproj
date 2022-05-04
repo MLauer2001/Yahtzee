@@ -6,4 +6,47 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="DiceImg\1.png" />
+    <None Remove="DiceImg\2.png" />
+    <None Remove="DiceImg\3.png" />
+    <None Remove="DiceImg\4.png" />
+    <None Remove="DiceImg\5.png" />
+    <None Remove="DiceImg\6.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yahtzee.BL.Models\Yahtzee.BL.Models.csproj" />
+    <ProjectReference Include="..\Yahtzee.BL\Yahtzee.BL.csproj" />
+    <ProjectReference Include="..\Yahtzee.Utililty\Yahtzee.Utililty.csproj" />
+    <ProjectReference Include="..\Yahztee.API\Yahztee.API.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="DiceImg\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="DiceImg\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="DiceImg\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="DiceImg\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="DiceImg\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="DiceImg\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="YahtzeeCard.xaml">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Page>
+  </ItemGroup>
+
 </Project>
