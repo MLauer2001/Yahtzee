@@ -6,15 +6,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Yahtzee.Web</title>
+    <title>@ViewData["Title"] - Yahtzee</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Yahtzee.Web</a>
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Yahtzee</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,10 +25,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Player" asp-action="Index">Scores</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -37,16 +40,16 @@
                                     username = username.Replace("\"", "");
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark">@username</a>
+                                    <a class="nav-link text-light">@username</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Player" asp-action="Logout" class="nav-link text-dark">Logout</a>
+                                    <a asp-controller="Player" asp-action="Logout" class="nav-link text-light">Logout</a>
                                 </li>
                             }
                             else
                             {
-                                <li class="nav-item text-dark">
-                                    <a asp-controller="Player" asp-action="Login" class="nav-link text-dark">Login</a>
+                                <li class="nav-item text-light">
+                                    <a asp-controller="Player" asp-action="Login" class="nav-link text-light">Login</a>
                                 </li>
                             }
                         }
@@ -72,3 +75,12 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script type="text/javascript" class="init">
+    $.noConflict();
+    $(function () {
+        $('.data-table').DataTable({
+            "lengthMenu": [[3, 6, 9, -1], [3, 6, 9, "All"]]
+        });
+    });
+</script>

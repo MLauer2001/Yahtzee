@@ -1,0 +1,113 @@
+﻿@model Yahtzee.BL.Models.Scorecard
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Scorecard</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Aces)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Aces)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Twos)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Twos)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Threes)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Threes)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fours)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Fours)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fives)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Fives)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sixes)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sixes)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Bonus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Bonus)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ThreeOfKind)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ThreeOfKind)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FourOfKind)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FourOfKind)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FullHouse)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FullHouse)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SmStraight)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SmStraight)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LgStraight)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LgStraight)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Yahtzee)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Yahtzee)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Chance)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Chance)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GrandTotal)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GrandTotal)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

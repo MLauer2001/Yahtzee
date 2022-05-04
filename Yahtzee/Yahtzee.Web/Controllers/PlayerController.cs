@@ -1,11 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RCW.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Yahtzee.BL;
 using Yahtzee.BL.Models;
+using Yahtzee.Web.Models;
+using Yahtzee.Web.ViewModels;
 using Yahztee.Web.Extensions;
 
 namespace Yahtzee.Web.Controllers
@@ -21,7 +28,7 @@ namespace Yahtzee.Web.Controllers
         public IActionResult Logout()
         {
             SetUser(null);
-            return View();
+            return View(nameof(Login));
         }
 
         [HttpPost]
@@ -39,7 +46,7 @@ namespace Yahtzee.Web.Controllers
                         ViewBag.Message = "You are now logged in.";
                     }
                 }
-                return View();
+                return View("~/Views/Home/Index.cshtml");
             }
             catch (Exception ex)
             {
@@ -62,15 +69,54 @@ namespace Yahtzee.Web.Controllers
         }
 
         // GET: UserController
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    if (!Authenticate.IsAuthenticated(HttpContext))
+        //    {
+        //        ViewBag.Title = "Scorecards";
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Login", "Player", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+        //    }
+        //}
+
+        private static HttpClient InitializeClient()
         {
-            return View();
+            HttpClient client = new ApiClient();
+            return client;
+        }
+
+        public async Task<ActionResult> Index()
+        {
+            if (Authenticate.IsAuthenticated(HttpContext))
+            {
+                HttpClient client = InitializeClient();
+
+                HttpResponseMessage response = client.GetAsync("Scorecard").Result;
+                string result = response.Content.ReadAsStringAsync().Result;
+                dynamic items = (JArray)JsonConvert.DeserializeObject(result);
+                List<Scorecard> scorecards = items.ToObject<List<Scorecard>>();
+
+                return View(nameof(Index), scorecards);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Player", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+            }            
         }
 
         // GET: UserController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(Guid id)
         {
-            return View();
+            HttpClient client = InitializeClient();
+            HttpResponseMessage response = client.GetAsync("Scorecard/" + id).Result;
+
+            string result = response.Content.ReadAsStringAsync().Result;
+            Scorecard scorecard = JsonConvert.DeserializeObject<Scorecard>(result);
+
+            return View("Details", scorecard);
         }
 
         // GET: UserController/Create

@@ -12,6 +12,16 @@ a {
   color: #0366d6;
 }
 
+.bg-dark {
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(60,68,185,1) 100%);
+}
+
+body {
+    background: rgb(60,68,185);
+    background: linear-gradient(90deg, rgba(60,68,185,1) 0%, rgba(0,0,0,1) 100%);
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
@@ -51,6 +61,19 @@ button.accept-policy {
   line-height: inherit;
 }
 
+.header {
+    margin: 0px;
+    padding: 0px;
+    background-color: darkblue;
+}
+
+    .header h1, .header h2, .header h3, .header h4, .header h5 {
+        margin: 0px;
+        padding: 0px 0px 0px 10px;
+        color: white;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -68,4 +91,76 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+table {
+    border: 1px solid #355E3B;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: none !important;
+}
+
+
+table thead tr {
+    color: white;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(60,68,185,1) 100%);
+}
+
+table tbody tr:nth-child(even) {
+    color: white;
+    background: rgb(60,68,185);
+    background: linear-gradient(90deg, rgba(60,68,185,1) 0%, rgba(0,0,0,1) 100%);
+}
+
+table tbody tr:nth-child(odd) {
+    color: white;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(60,68,185,1) 100%);
+}
+
+table.dataTable tbody tr.odd {
+    color: white;
+    background: rgb(60,68,185);
+    background: linear-gradient(90deg, rgba(60,68,185,1) 0%, rgba(0,0,0,1) 100%);
+}
+
+table.dataTable tbody tr.odd {
+    color: white;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(60,68,185,1) 100%);
+}
+
+.col-sm-2{
+    color: white;
+}
+
+.col-sm-10{
+    color: white;
+}
+
+label{
+    color: white;
+}
+
+select{
+    color: white;
+}
+
+option{
+    color: black;
+}
+
+.dataTables_info{
+    color: white;
+}
+
+h1, h2, h3, h4, h5{
+    color: white;
+}
+
+input{
+    color: white;
 }

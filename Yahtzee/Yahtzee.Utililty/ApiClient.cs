@@ -12,9 +12,10 @@ namespace RCW.Utility
     public class ApiClient : HttpClient
     {
 
-        public ApiClient(string baseAddress)
+        public ApiClient()//string baseAddress)
         {
-            BaseAddress = new Uri(baseAddress);
+            //BaseAddress = new Uri(baseAddress);
+            BaseAddress = new Uri("https://mryahtzeeapi.azurewebsites.net/");
         }
 
         /// <summary>

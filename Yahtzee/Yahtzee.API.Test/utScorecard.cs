@@ -39,9 +39,9 @@ namespace Yahtzee.API.Test
             response = client.GetAsync("Scorecard").Result;
             result = response.Content.ReadAsStringAsync().Result;
             items = (JArray)JsonConvert.DeserializeObject(result);
-            List<Activation> activations = items.ToObject<List<Activation>>();
+            List<Scorecard> scorecards = items.ToObject<List<Scorecard>>();
 
-            Assert.IsTrue(activations.Count > 0);
+            Assert.IsTrue(scorecards.Count > 0);
         }
 
         [TestMethod]
