@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using Yahtzee.BL;
 using Yahtzee.BL.Models;
 using Yahtzee.Web.Models;
-using Yahtzee.Web.ViewModels;
 using Yahztee.Web.Extensions;
 
 namespace Yahtzee.Web.Controllers
@@ -68,20 +67,6 @@ namespace Yahtzee.Web.Controllers
             }
         }
 
-        // GET: UserController
-        //public ActionResult Index()
-        //{
-        //    if (!Authenticate.IsAuthenticated(HttpContext))
-        //    {
-        //        ViewBag.Title = "Scorecards";
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Login", "Player", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
-        //    }
-        //}
-
         private static HttpClient InitializeClient()
         {
             HttpClient client = new ApiClient();
@@ -90,13 +75,17 @@ namespace Yahtzee.Web.Controllers
 
         public async Task<ActionResult> Index()
         {
-            if (Authenticate.IsAuthenticated(HttpContext))
+            if (!Authenticate.IsAuthenticated(HttpContext))
             {
                 HttpClient client = InitializeClient();
 
-                HttpResponseMessage response = client.GetAsync("Scorecard").Result;
-                string result = response.Content.ReadAsStringAsync().Result;
-                dynamic items = (JArray)JsonConvert.DeserializeObject(result);
+                HttpResponseMessage response;
+                string result;
+                dynamic items;
+
+                response = client.GetAsync("Scorecard").Result;
+                result = response.Content.ReadAsStringAsync().Result;
+                items = (JArray)JsonConvert.DeserializeObject(result);
                 List<Scorecard> scorecards = items.ToObject<List<Scorecard>>();
 
                 return View(nameof(Index), scorecards);
@@ -115,7 +104,7 @@ namespace Yahtzee.Web.Controllers
 
             string result = response.Content.ReadAsStringAsync().Result;
             Scorecard scorecard = JsonConvert.DeserializeObject<Scorecard>(result);
-
+            
             return View("Details", scorecard);
         }
 

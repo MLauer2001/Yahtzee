@@ -10,6 +10,7 @@ namespace Yahtzee.BL.Models
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
+        public string Username { get; set; }
         public int Aces { get; set; }
         public int Twos { get; set; }
         public int Threes { get; set; }

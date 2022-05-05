@@ -202,6 +202,7 @@ namespace Yahtzee.API.Test
             {
                 Id = guid.Id,
                 UserId = userId,
+                Username = guid.Username,
                 Aces = 0,
                 Twos = 0,
                 Threes = 0,
@@ -216,7 +217,7 @@ namespace Yahtzee.API.Test
                 Chance = 0,
                 Yahtzee = 0,
                 Bonus = 0,
-                GrandTotal = 0
+                GrandTotal = 1
             };
 
             bool rollback = true;

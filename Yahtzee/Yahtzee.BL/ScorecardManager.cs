@@ -14,97 +14,187 @@ namespace Yahtzee.BL
     {
         #region "CRUD"
 
-        public async static Task<List<Scorecard>> Load()
+        public async static Task<List<Scorecard>> Load(Guid? userId = null)
         {
-            using (var dc = new YahtzeeEntities())
+            List<Scorecard> rows = new List<Scorecard>();
+
+            using (YahtzeeEntities dc = new YahtzeeEntities())
             {
-                List<Scorecard> scorecards = new List<Scorecard>();
+                var tblScorecards = (from s in dc.tblScorecards
+                                     join u in dc.tblUsers on s.UserId equals u.Id
+                                     where u.Id == userId || userId == null
+                                     orderby s.GrandTotal descending
+                                     select new
+                                     {
+                                         ScorecardId = s.Id,
+                                         s.UserId,
+                                         u.Username,
+                                         s.Aces,
+                                         s.Twos,
+                                         s.Threes,
+                                         s.Fours,
+                                         s.Fives,
+                                         s.Sixes,
+                                         s.Bonus,
+                                         s.ThreeofKind,
+                                         s.FourofKind,
+                                         s.FullHouse,
+                                         s.SmStraight,
+                                         s.LgStraight,
+                                         s.Chance,
+                                         s.Yahtzee,
+                                         s.GrandTotal
+                                     }).Distinct().ToList();
 
-                dc.tblScorecards.ToList().ForEach(row => scorecards.Add(new Scorecard()
+                foreach (var s in tblScorecards)
                 {
-                    Id = row.Id,
-                    UserId = row.UserId,
-                    Aces = row.Aces,
-                    Twos = row.Twos,
-                    Threes = row.Threes,
-                    Fours = row.Fours,
-                    Fives = row.Fives,
-                    Sixes = row.Sixes,
-                    Bonus = row.Bonus,
-                    ThreeOfKind = row.ThreeofKind,
-                    FourOfKind = row.FourofKind,
-                    FullHouse = row.FullHouse,
-                    SmStraight = row.SmStraight,
-                    LgStraight = row.LgStraight,
-                    Yahtzee = row.Yahtzee,
-                    Chance = row.Chance,
-                    GrandTotal = row.GrandTotal
-                    
-                }));
-
-                return scorecards;
+                    rows.Add(new Scorecard
+                    {
+                        Id = s.ScorecardId,
+                        UserId = s.UserId,
+                        Username = s.Username,
+                        Aces = s.Aces,
+                        Twos = s.Twos,
+                        Threes = s.Threes,
+                        Fours = s.Fours,
+                        Fives = s.Fives,
+                        Sixes = s.Sixes,
+                        Bonus = s.Bonus,
+                        ThreeOfKind = s.ThreeofKind,
+                        FourOfKind = s.FourofKind,
+                        SmStraight = s.SmStraight,
+                        LgStraight = s.LgStraight,
+                        Chance = s.Chance,
+                        FullHouse = s.FullHouse,
+                        Yahtzee = s.Yahtzee,
+                        GrandTotal = s.GrandTotal
+                    });
+                }
+                return rows;
             }
         }
 
         public async static Task<Scorecard> LoadById(Guid id)
         {
-            using (var dc = new YahtzeeEntities())
+            using (YahtzeeEntities dc = new YahtzeeEntities())
             {
-                tblScorecard row = dc.tblScorecards.FirstOrDefault(row => row.Id == id);
+                var row = (from s in dc.tblScorecards
+                           join u in dc.tblUsers on s.UserId equals u.Id
+                           where s.Id == id
+                           orderby s.GrandTotal descending
+                           select new
+                           {
+                               ScorecardId = s.Id,
+                               s.UserId,
+                               u.Username,
+                               s.Aces,
+                               s.Twos,
+                               s.Threes,
+                               s.Fours,
+                               s.Fives,
+                               s.Sixes,
+                               s.Bonus,
+                               s.ThreeofKind,
+                               s.FourofKind,
+                               s.FullHouse,
+                               s.SmStraight,
+                               s.LgStraight,
+                               s.Chance,
+                               s.Yahtzee,
+                               s.GrandTotal
+                           }).FirstOrDefault();
 
-                Scorecard scorecard = new Scorecard()
+                if (row != null)
                 {
-                    Id = row.Id,
-                    UserId = row.UserId,
-                    Aces = row.Aces,
-                    Twos = row.Twos,
-                    Threes = row.Threes,
-                    Fours = row.Fours,
-                    Fives = row.Fives,
-                    Sixes = row.Sixes,
-                    Bonus = row.Bonus,
-                    ThreeOfKind = row.ThreeofKind,
-                    FourOfKind = row.FourofKind,
-                    FullHouse = row.FullHouse,
-                    SmStraight = row.SmStraight,
-                    LgStraight = row.LgStraight,
-                    Yahtzee = row.Yahtzee,
-                    Chance = row.Chance,
-                    GrandTotal = row.GrandTotal
-                };
-
-                return scorecard;
+                    Scorecard scorecard = new Scorecard
+                    {
+                        Id = row.ScorecardId,
+                        UserId = row.UserId,
+                        Username = row.Username,
+                        Aces = row.Aces,
+                        Twos = row.Twos,
+                        Threes = row.Threes,
+                        Fours = row.Fours,
+                        Fives = row.Fives,
+                        Sixes = row.Sixes,
+                        Bonus = row.Bonus,
+                        ThreeOfKind = row.ThreeofKind,
+                        FourOfKind = row.FourofKind,
+                        SmStraight = row.SmStraight,
+                        LgStraight = row.LgStraight,
+                        Chance = row.Chance,
+                        FullHouse = row.FullHouse,
+                        Yahtzee = row.Yahtzee,
+                        GrandTotal = row.GrandTotal
+                    };
+                    return scorecard;
+                }
+                else
+                {
+                    throw new Exception("Row was not found.");
+                }
             }
         }
 
         public async static Task<Scorecard> LoadByUserId(Guid userId)
         {
-            using (var dc = new YahtzeeEntities())
+            using (YahtzeeEntities dc = new YahtzeeEntities())
             {
-                tblScorecard row = dc.tblScorecards.FirstOrDefault(row => row.UserId == userId);
+                var row = (from s in dc.tblScorecards
+                           join u in dc.tblUsers on s.UserId equals u.Id
+                           where u.Id == userId
+                           orderby s.GrandTotal descending
+                           select new
+                           {
+                               ScorecardId = s.Id,
+                               s.UserId,
+                               u.Username,
+                               s.Aces,
+                               s.Twos,
+                               s.Threes,
+                               s.Fours,
+                               s.Fives,
+                               s.Sixes,
+                               s.Bonus,
+                               s.ThreeofKind,
+                               s.FourofKind,
+                               s.FullHouse,
+                               s.SmStraight,
+                               s.LgStraight,
+                               s.Chance,
+                               s.Yahtzee,
+                               s.GrandTotal
+                           }).FirstOrDefault();
 
-                Scorecard scorecard = new Scorecard()
+                if (row != null)
                 {
-                    Id = row.Id,
-                    UserId = row.UserId,
-                    Aces = row.Aces,
-                    Twos = row.Twos,
-                    Threes = row.Threes,
-                    Fours = row.Fours,
-                    Fives = row.Fives,
-                    Sixes = row.Sixes,
-                    Bonus = row.Bonus,
-                    ThreeOfKind = row.ThreeofKind,
-                    FourOfKind = row.FourofKind,
-                    FullHouse = row.FullHouse,
-                    SmStraight = row.SmStraight,
-                    LgStraight = row.LgStraight,
-                    Yahtzee = row.Yahtzee,
-                    Chance = row.Chance,
-                    GrandTotal = row.GrandTotal
-                };
-
-                return scorecard;
+                    Scorecard scorecard = new Scorecard
+                    {
+                        Id = row.ScorecardId,
+                        UserId = row.UserId,
+                        Username = row.Username,
+                        Aces = row.Aces,
+                        Twos = row.Twos,
+                        Threes = row.Threes,
+                        Fours = row.Fours,
+                        Fives = row.Fives,
+                        Sixes = row.Sixes,
+                        Bonus = row.Bonus,
+                        ThreeOfKind = row.ThreeofKind,
+                        FourOfKind = row.FourofKind,
+                        SmStraight = row.SmStraight,
+                        LgStraight = row.LgStraight,
+                        Chance = row.Chance,
+                        FullHouse = row.FullHouse,
+                        Yahtzee = row.Yahtzee,
+                        GrandTotal = row.GrandTotal
+                    };
+                    return scorecard;
+                }
+                else
+                {
+                    throw new Exception("Row was not found.");
+                }
             }
         }
 
