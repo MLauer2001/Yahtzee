@@ -32,7 +32,7 @@ namespace Yahztee.API.Controllers
         {
             try
             {
-                return Ok(ScorecardManager.LoadById(id));
+                return Ok(await ScorecardManager.LoadById(id));
             }
             catch (Exception ex)
             {
