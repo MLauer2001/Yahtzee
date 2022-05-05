@@ -13,32 +13,32 @@
                 <GradientStop Color="#FF3B40B8" Offset="0.71"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="btnOne" Content="Ones" IsEnabled="False" HorizontalAlignment="Left" Margin="137,184,0,0" VerticalAlignment="Top" Height="25" Width="99" Background="White"/>
-        <Button x:Name="btnTwo" Content="Twos" IsEnabled="False" HorizontalAlignment="Left" Margin="137,223,0,0" VerticalAlignment="Top" Height="25" Width="99" Background="White"/>
-        <Button x:Name="btnThree" Content="Threes" IsEnabled="False" HorizontalAlignment="Left" Margin="137,261,0,0" VerticalAlignment="Top" Height="25" Width="99" Click="btnThree_Click" Background="White"/>
-        <Button x:Name="btnFour" Content="Fours" IsEnabled="False" HorizontalAlignment="Left" Margin="137,342,0,0" VerticalAlignment="Top" Height="25" Width="99" Background="White"/>
-        <Button x:Name="btnFive" Content="Fives" IsEnabled="False" HorizontalAlignment="Left" Margin="137,302,0,0" VerticalAlignment="Top" Height="25" Width="99" Click="btnFive_Click" Background="White"/>
-        <Button x:Name="btnSix" Content="Sixes" IsEnabled="False" HorizontalAlignment="Left" Margin="137,379,0,0" VerticalAlignment="Top" Height="25" Width="99" Background="White"/>
+        <Button x:Name="btnOne" Content="Ones" IsEnabled="False" HorizontalAlignment="Left" Margin="137,184,0,0" VerticalAlignment="Top" Height="25" Width="99" Background="White" Click="btnOne_Click"/>
+        <Button x:Name="btnTwo" Content="Twos" IsEnabled="False" HorizontalAlignment="Left" Margin="137,223,0,0" VerticalAlignment="Top" Height="25" Width="99" Background="White" Click="btnTwo_Click"/>
+        <Button x:Name="btnThree" Content="Threes" IsEnabled="False" HorizontalAlignment="Left" Margin="137,262,0,0" VerticalAlignment="Top" Height="25" Width="99" Click="btnThree_Click" Background="White"/>
+        <Button x:Name="btnFour" Content="Fours" IsEnabled="False" HorizontalAlignment="Left" Margin="137,304,0,0" VerticalAlignment="Top" Height="25" Width="99" Background="White" Click="btnFour_Click"/>
+        <Button x:Name="btnFive" Content="Fives" IsEnabled="False" HorizontalAlignment="Left" Margin="137,342,0,0" VerticalAlignment="Top" Height="25" Width="99" Click="btnFive_Click" Background="White"/>
+        <Button x:Name="btnSix" Content="Sixes" IsEnabled="False" HorizontalAlignment="Left" Margin="137,379,0,0" VerticalAlignment="Top" Height="25" Width="99" Background="White" Click="btnSix_Click"/>
         <Label Content="Upper Section Total" IsEnabled="False" HorizontalAlignment="Left" Margin="236,494,0,0" VerticalAlignment="Top" Foreground="White" Width="115"/>
         <Label x:Name="lblUpperSection" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="362,494,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
         <Label x:Name="lblSix" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,379,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
-        <Label x:Name="lblFive" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,302,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
-        <Label x:Name="lblFour" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,342,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
-        <Label x:Name="lblThree" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,261,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
+        <Label x:Name="lblFive" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,342,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
+        <Label x:Name="lblFour" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,304,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
+        <Label x:Name="lblThree" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,262,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
         <Label x:Name="lblTwo" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,223,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
         <Label x:Name="lblOne" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,184,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
         <Button x:Name="btn3ofKind" IsEnabled="False" Content="3 of a Kind" HorizontalAlignment="Left" Margin="653,184,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btn3ofKind_Click"/>
-        <Button x:Name="btn4ofKind" IsEnabled="False" Content="Four of a Kind" HorizontalAlignment="Left" Margin="653,223,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White"/>
+        <Button x:Name="btn4ofKind" IsEnabled="False" Content="Four of a Kind" HorizontalAlignment="Left" Margin="653,223,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btn4ofKind_Click"/>
         <Button x:Name="btnFullHouse" IsEnabled="False" Content="Full House" HorizontalAlignment="Left" Margin="653,262,0,0" VerticalAlignment="Top" Height="25" Width="110" Click="btnFullHouse_Click" Background="White"/>
-        <Button x:Name="btnSmStraight" IsEnabled="False" Content="Sm. Straight" HorizontalAlignment="Left" Margin="653,342,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White"/>
-        <Button x:Name="btnYahtzee" Content="Yahtzee!" IsEnabled="False" HorizontalAlignment="Left" Margin="653,379,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White"/>
+        <Button x:Name="btnSmStraight" IsEnabled="False" Content="Sm. Straight" HorizontalAlignment="Left" Margin="653,304,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnSmStraight_Click"/>
+        <Button x:Name="btnYahtzee" Content="Yahtzee!" IsEnabled="False" HorizontalAlignment="Left" Margin="653,379,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnYahtzee_Click"/>
         <Label x:Name="lblYahtzee" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,379,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
-        <Label x:Name="lblLgStraight" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,304,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
-        <Label x:Name="lblSmStraight" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,342,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
+        <Label x:Name="lblLgStraight" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,342,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
+        <Label x:Name="lblSmStraight" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,304,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
         <Label x:Name="lblFullHouse" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,262,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
         <Label x:Name="lblFourofKind" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,223,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
         <Label x:Name="lbl3ofKind" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,184,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
-        <Button x:Name="btnLgStraight" Content="Lg. Straight" IsEnabled="False" HorizontalAlignment="Left" Margin="653,304,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White"/>
+        <Button x:Name="btnLgStraight" Content="Lg. Straight" IsEnabled="False" HorizontalAlignment="Left" Margin="653,342,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnLgStraight_Click"/>
         <Button x:Name="btnChance" Content="Chance" IsEnabled="False" HorizontalAlignment="Left" Margin="653,418,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnChance_Click"/>
         <Label x:Name="lblChance" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,418,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
         <Label Content="Lower Section Total" IsEnabled="False" HorizontalAlignment="Left" Margin="461,494,0,0" VerticalAlignment="Top" Foreground="White" Width="115"/>

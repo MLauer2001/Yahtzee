@@ -33,6 +33,11 @@ namespace Yahztee.WPF
             dice[2] = new Die();
             dice[3] = new Die();
             dice[4] = new Die();
+            btnHold1.IsEnabled = false;
+            btnHold2.IsEnabled = false;
+            btnHold3.IsEnabled = false;
+            btnHold4.IsEnabled = false;
+            btnHold5.IsEnabled = false;
             foreach(var die in dice)
             {
                 die.Value = 6;
@@ -43,8 +48,14 @@ namespace Yahztee.WPF
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
             //CALL TO WEB TO CHECK IF ITS MY TURN...
-            
-            if(rollsLeft > 0) 
+
+            btnHold1.IsEnabled = true;
+            btnHold2.IsEnabled = true;
+            btnHold3.IsEnabled = true;
+            btnHold4.IsEnabled = true;
+            btnHold5.IsEnabled = true;
+
+            if (rollsLeft > 0) 
             { 
                 //Check for Dice held and roll remaining -> return die array
                 dice = ScorecardManager.RollDice(dice);
@@ -60,9 +71,58 @@ namespace Yahztee.WPF
                 if(rollsLeft == 0)
                 {
                     //User adds to their score when roll/turn is up, disable button until this happens
-                    btnRollDice.IsEnabled = false;
+                    //Enable buttons to update scorecard
+                    UpdateScorecard();
+
                 }
             }
+        }
+
+        private void UpdateScorecard()
+        {
+            btnRollDice.IsEnabled = false;
+            btnOne.IsEnabled = true;
+            btnTwo.IsEnabled = true;
+            btnThree.IsEnabled = true;
+            btnFour.IsEnabled = true;
+            btnFive.IsEnabled = true;
+            btnSix.IsEnabled = true;
+            btn3ofKind.IsEnabled = true;
+            btn4ofKind.IsEnabled = true;
+            btnFullHouse.IsEnabled = true;
+            btnLgStraight.IsEnabled = true;
+            btnSmStraight.IsEnabled = true;
+            btnYahtzee.IsEnabled = true;
+            btnChance.IsEnabled = true;
+            btnYahtzeeBonus.IsEnabled = true;
+        }
+
+        private void ResetTurn()
+        {
+            //Disable the buttons, rolls back at 3
+            rollsLeft = 3;
+
+            btnHold1.IsEnabled = true;
+            btnHold2.IsEnabled = true;
+            btnHold3.IsEnabled = true;
+            btnHold4.IsEnabled = true;
+            btnHold5.IsEnabled = true;
+            btnRollDice.IsEnabled = true;
+
+            btnOne.IsEnabled = false;
+            btnTwo.IsEnabled = false;
+            btnThree.IsEnabled = false;
+            btnFour.IsEnabled = false;
+            btnFive.IsEnabled = false;
+            btnSix.IsEnabled = false;
+            btn3ofKind.IsEnabled = false;
+            btn4ofKind.IsEnabled = false;
+            btnFullHouse.IsEnabled = false;
+            btnLgStraight.IsEnabled = false;
+            btnSmStraight.IsEnabled = false;
+            btnYahtzee.IsEnabled = false;
+            btnChance.IsEnabled = false;
+            btnYahtzeeBonus.IsEnabled = false;
         }
 
         private void btnHold1_Click(object sender, RoutedEventArgs e)
@@ -135,7 +195,20 @@ namespace Yahztee.WPF
             }
         }
 
+        private void btnOne_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnTwo_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
         private void btnThree_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btnFour_Click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -145,17 +218,40 @@ namespace Yahztee.WPF
 
         }
 
+        private void btnSix_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void btn3ofKind_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void btnChance_Click(object sender, RoutedEventArgs e)
+        private void btn4ofKind_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btnFullHouse_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void btnFullHouse_Click(object sender, RoutedEventArgs e)
+        private void btnSmStraight_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnLgStraight_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnYahtzee_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btnChance_Click(object sender, RoutedEventArgs e)
         {
 
         }
