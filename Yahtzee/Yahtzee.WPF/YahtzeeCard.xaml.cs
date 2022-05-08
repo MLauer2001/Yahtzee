@@ -24,6 +24,9 @@ namespace Yahztee.WPF
     {
         int rollsLeft = 3;
         Die[] dice = new Die[5];
+        int upperSectionTotal = 0;
+        int lowerSectionTotal = 0;
+        int grandTotal = 0;
 
         public YahtzeeCard()
         {
@@ -68,7 +71,7 @@ namespace Yahztee.WPF
                 Die4.Source = new BitmapImage(new Uri(String.Format(@"pack://application:,,,/DiceImg/{0}.png", dice[3].Value)));
                 Die5.Source = new BitmapImage(new Uri(String.Format(@"pack://application:,,,/DiceImg/{0}.png", dice[4].Value)));
                 rollsLeft--;
-                if(rollsLeft == 0)
+                if(rollsLeft < 3)
                 {
                     //User adds to their score when roll/turn is up, disable button until this happens
                     //Enable buttons to update scorecard
@@ -80,7 +83,16 @@ namespace Yahztee.WPF
 
         private void UpdateScorecard()
         {
-            btnRollDice.IsEnabled = false;
+            if (rollsLeft == 0)
+            {
+                btnRollDice.IsEnabled = false;
+                btnHold1.IsEnabled = false;
+                btnHold2.IsEnabled = false;
+                btnHold3.IsEnabled = false;
+                btnHold4.IsEnabled = false;
+                btnHold5.IsEnabled = false;
+            }
+            
             btnOne.IsEnabled = true;
             btnTwo.IsEnabled = true;
             btnThree.IsEnabled = true;
@@ -123,6 +135,21 @@ namespace Yahztee.WPF
             btnYahtzee.IsEnabled = false;
             btnChance.IsEnabled = false;
             btnYahtzeeBonus.IsEnabled = false;
+        }
+        private int UpdateUpperSection(int value)
+        {
+            int turnScore = 0;
+            foreach (var die in dice)
+            {
+                if (die.Value == value)
+                {
+                    turnScore += value;
+                }
+            }
+            //Update UppersectionTotal
+            upperSectionTotal += turnScore;
+            //Show score for that turn
+            return turnScore;
         }
 
         private void btnHold1_Click(object sender, RoutedEventArgs e)
@@ -197,30 +224,54 @@ namespace Yahztee.WPF
 
         private void btnOne_Click(object sender, RoutedEventArgs e)
         {
-
+            if (lblOne.Content == string.Empty)
+            {
+                lblOne.Content = UpdateUpperSection(1);
+                ResetTurn();
+            }
         }
 
         private void btnTwo_Click(object sender, RoutedEventArgs e)
         {
-
+            if (lblTwo.Content == string.Empty)
+            {
+                lblTwo.Content = UpdateUpperSection(2);
+                ResetTurn();
+            }
         }
         private void btnThree_Click(object sender, RoutedEventArgs e)
         {
-
+            if (lblThree.Content == string.Empty)
+            {
+                lblThree.Content = UpdateUpperSection(3);
+                ResetTurn();
+            }
         }
         private void btnFour_Click(object sender, RoutedEventArgs e)
         {
-
+            if (lblFour.Content == string.Empty)
+            {
+                lblFour.Content = UpdateUpperSection(4);
+                ResetTurn();
+            }
         }
 
         private void btnFive_Click(object sender, RoutedEventArgs e)
         {
-
+            if (lblFive.Content == string.Empty)
+            {
+                lblFive.Content = UpdateUpperSection(5);
+                ResetTurn();
+            }
         }
 
         private void btnSix_Click(object sender, RoutedEventArgs e)
         {
-
+            if (lblSix.Content == string.Empty)
+            {
+                lblSix.Content = UpdateUpperSection(6);
+                ResetTurn();
+            }
         }
 
         private void btn3ofKind_Click(object sender, RoutedEventArgs e)
