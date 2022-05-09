@@ -164,3 +164,7 @@ h1, h2, h3, h4, h5{
 input{
     color: white;
 }
+
+a {
+    color: antiquewhite;
+}

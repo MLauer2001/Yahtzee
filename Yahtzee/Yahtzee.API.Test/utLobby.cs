@@ -45,6 +45,25 @@ namespace Yahtzee.API.Test
         }
 
         [TestMethod]
+        public void GetIdTest()
+        {
+            HttpResponseMessage response;
+            string result;
+            dynamic items;
+
+            response = client.GetAsync("Lobby").Result;
+            result = response.Content.ReadAsStringAsync().Result;
+            items = (JArray)JsonConvert.DeserializeObject(result);
+            List<Lobby> lobbies = items.ToObject<List<Lobby>>();
+            Lobby lobby = lobbies[0];
+
+            Guid guid = lobby.Id;
+            response = client.GetAsync("Lobby/" + guid).Result;
+
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+        [TestMethod]
         public void PostTest()
         {
             Lobby lobby = new Lobby

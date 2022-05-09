@@ -28,6 +28,19 @@ namespace Yahztee.API.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Lobby>> Get(Guid id)
+        {
+            try
+            {
+                return Ok(await LobbyManager.LoadById(id));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
         //For the url. Passing in ID
         [HttpPost("{rollback?}")]
         public async Task<IActionResult> Post([FromBody] Lobby Lobby, bool rollback = false)
