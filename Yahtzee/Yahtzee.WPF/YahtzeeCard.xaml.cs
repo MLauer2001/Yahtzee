@@ -24,6 +24,7 @@ namespace Yahztee.WPF
     {
         int rollsLeft = 3;
         Die[] dice = new Die[5];
+        int upperBonusCheck = 0;
         int upperSectionTotal = 0;
         int lowerSectionTotal = 0;
         int grandTotal = 0;
@@ -70,7 +71,10 @@ namespace Yahztee.WPF
                 Die3.Source = new BitmapImage(new Uri(String.Format(@"pack://application:,,,/DiceImg/{0}.png", dice[2].Value)));
                 Die4.Source = new BitmapImage(new Uri(String.Format(@"pack://application:,,,/DiceImg/{0}.png", dice[3].Value)));
                 Die5.Source = new BitmapImage(new Uri(String.Format(@"pack://application:,,,/DiceImg/{0}.png", dice[4].Value)));
+                
                 rollsLeft--;
+                lblRollsLeft.Content = rollsLeft.ToString();
+
                 if(rollsLeft < 3)
                 {
                     //User adds to their score when roll/turn is up, disable button until this happens
@@ -136,6 +140,8 @@ namespace Yahztee.WPF
             btnChance.IsEnabled = false;
             btnYahtzeeBonus.IsEnabled = false;
         }
+
+        #region UPPERSECTION
         private int UpdateUpperSection(int value)
         {
             int turnScore = 0;
@@ -152,6 +158,7 @@ namespace Yahztee.WPF
             return turnScore;
         }
 
+        
         private void btnHold1_Click(object sender, RoutedEventArgs e)
         {
             if (dice[0].Hold == false)
@@ -273,16 +280,123 @@ namespace Yahztee.WPF
                 ResetTurn();
             }
         }
+        #endregion
+
+        private static int[] OrderDice(Die[] dice)
+        {
+            int[] array = new int[dice.Length];
+            for (int i = 0; i < dice.Length; i++)
+            {
+                array[i] = dice[i].Value;
+            }
+
+            int[] array2 = array.OrderBy(i => i).ToArray();
+
+            return array2;
+        }
+
+        private static bool OfKindCheck(int[] array, int num, int whatKind)
+        {
+            int[] numArray = new int[whatKind];
+            for(int z = 0; z < whatKind; z++)
+            {
+                numArray[z] = num;
+            }
+
+            int n = array.Length;
+            int m = numArray.Length; 
+            // Two pointers to traverse the arrays
+            int i = 0, j = 0;
+
+            // Traverse both arrays simultaneously
+            while (i < n && j < m)
+            {
+
+                // If element matches
+                // increment both pointers
+                if (array[i] == numArray[j])
+                {
+
+                    i++;
+                    j++;
+
+                    // If array B is completely
+                    // traversed
+                    if (j == m)
+                        return true;
+                }
+
+                // If not,
+                // increment i and reset j
+                else
+                {
+                    i = i - j + 1;
+                    j = 0;
+                }
+            }
+            return false;
+        }
 
         private void btn3ofKind_Click(object sender, RoutedEventArgs e)
         {
+            if(lbl3ofKind.Content == string.Empty)
+            {
+                int num = 1;
+                int[] array = OrderDice(dice);
+                int turnTotal = 0;
+                while (num < 6)
+                {
+                    //3 of Kind check, hence passing in 3
+                    if (OfKindCheck(array, num, 3))
+                    {
+                        turnTotal = num * 3;
 
+                        lowerSectionTotal += turnTotal;
+                        lbl3ofKind.Content = turnTotal.ToString();
+                        ResetTurn();
+                        break;
+                    }
+                    num++;
+                }
+                if(turnTotal == 0)
+                {
+                    lbl3ofKind.Content = "0";
+                    ResetTurn();
+                }
+                
+            }
         }
 
         private void btn4ofKind_Click(object sender, RoutedEventArgs e)
         {
+            if (lblFourofKind.Content == string.Empty)
+            {
+                int num = 1;
+                int[] array = OrderDice(dice);
+                int turnTotal = 0;
+                while (num < 6)
+                {
+                    //4 of Kind check, hence passing in 4
+                    if (OfKindCheck(array, num, 4))
+                    {
+                        turnTotal = num * 4;
 
+                        lowerSectionTotal += turnTotal;
+                        lblFourofKind.Content = turnTotal.ToString();
+                        ResetTurn();
+                        break;
+                    }
+                    num++;
+                }
+                if (turnTotal == 0)
+                {
+                    lblFourofKind.Content = "0";
+                    ResetTurn();
+                }
+
+            }
         }
+
         private void btnFullHouse_Click(object sender, RoutedEventArgs e)
         {
 
@@ -300,7 +414,36 @@ namespace Yahztee.WPF
 
         private void btnYahtzee_Click(object sender, RoutedEventArgs e)
         {
+            if (lblYahtzee.Content == string.Empty)
+            {
+                int num = 1;
+                int[] array = OrderDice(dice);
+                int turnTotal = 0;
+                while (num < 6)
+                {
+                    //Yahtzee check, hence passing in 5
+                    if (OfKindCheck(array, num, 5))
+                    {
+                        turnTotal = 50;
 
+                        lowerSectionTotal += turnTotal;
+                        lblYahtzee.Content = turnTotal.ToString();
+                        ResetTurn();
+                        break;
+                    }
+                    num++;
+                }
+                if (turnTotal == 0)
+                {
+                    lblYahtzee.Content = "0";
+                    ResetTurn();
+                }
+
+            }
+            else if (lblYahtzee.Content == "50")
+            {
+                //Yahtzee BONUS logic here
+            }
         }
         private void btnChance_Click(object sender, RoutedEventArgs e)
         {
