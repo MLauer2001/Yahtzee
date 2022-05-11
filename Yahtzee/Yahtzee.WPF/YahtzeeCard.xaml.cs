@@ -42,7 +42,7 @@ namespace Yahztee.WPF
             btnHold3.IsEnabled = false;
             btnHold4.IsEnabled = false;
             btnHold5.IsEnabled = false;
-            foreach(var die in dice)
+            foreach (var die in dice)
             {
                 die.Value = 6;
                 die.Hold = false;
@@ -59,8 +59,8 @@ namespace Yahztee.WPF
             btnHold4.IsEnabled = true;
             btnHold5.IsEnabled = true;
 
-            if (rollsLeft > 0) 
-            { 
+            if (rollsLeft > 0)
+            {
                 //Check for Dice held and roll remaining -> return die array
                 dice = ScorecardManager.RollDice(dice);
 
@@ -71,11 +71,11 @@ namespace Yahztee.WPF
                 Die3.Source = new BitmapImage(new Uri(String.Format(@"pack://application:,,,/DiceImg/{0}.png", dice[2].Value)));
                 Die4.Source = new BitmapImage(new Uri(String.Format(@"pack://application:,,,/DiceImg/{0}.png", dice[3].Value)));
                 Die5.Source = new BitmapImage(new Uri(String.Format(@"pack://application:,,,/DiceImg/{0}.png", dice[4].Value)));
-                
+
                 rollsLeft--;
                 lblRollsLeft.Content = rollsLeft.ToString();
 
-                if(rollsLeft < 3)
+                if (rollsLeft < 3)
                 {
                     //User adds to their score when roll/turn is up, disable button until this happens
                     //Enable buttons to update scorecard
@@ -96,7 +96,7 @@ namespace Yahztee.WPF
                 btnHold4.IsEnabled = false;
                 btnHold5.IsEnabled = false;
             }
-            
+
             btnOne.IsEnabled = true;
             btnTwo.IsEnabled = true;
             btnThree.IsEnabled = true;
@@ -158,7 +158,7 @@ namespace Yahztee.WPF
             return turnScore;
         }
 
-        
+
         private void btnHold1_Click(object sender, RoutedEventArgs e)
         {
             if (dice[0].Hold == false)
@@ -175,7 +175,7 @@ namespace Yahztee.WPF
 
         private void btnHold2_Click(object sender, RoutedEventArgs e)
         {
-            if(dice[1].Hold == false)
+            if (dice[1].Hold == false)
             {
                 dice[1].Hold = true;
                 btnHold2.Background = Brushes.Red;
@@ -298,13 +298,13 @@ namespace Yahztee.WPF
         private static bool OfKindCheck(int[] array, int num, int whatKind)
         {
             int[] numArray = new int[whatKind];
-            for(int z = 0; z < whatKind; z++)
+            for (int z = 0; z < whatKind; z++)
             {
                 numArray[z] = num;
             }
 
             int n = array.Length;
-            int m = numArray.Length; 
+            int m = numArray.Length;
             // Two pointers to traverse the arrays
             int i = 0, j = 0;
 
@@ -337,9 +337,100 @@ namespace Yahztee.WPF
             return false;
         }
 
+        private static bool StraightCheck(int[] array, int whatKind)
+        {
+            int[] checkArray = new int[whatKind];
+            int num = 1;
+            for (int z = 0; z < whatKind; z++)
+            {
+                checkArray[z] = num;
+                num++;
+            }
+
+            //If its a small straight, only compare first four numbers in array
+            if (whatKind == 4)
+            {
+                //Check if array is 1,2,3,4 || 2,3,4,5 || 3,4,5,6
+                //Must remove duplicates in array
+                array = array.Distinct().ToArray();
+
+                if (array[0] == 1)
+                {
+                    checkArray[0] = 1;
+                    checkArray[1] = 2;
+                    checkArray[2] = 3;
+                    checkArray[3] = 4;
+
+                    if (Enumerable.SequenceEqual(checkArray, array))
+                        return true;
+                    else
+                        return false;
+                }
+                else if (array[0] == 2)
+                {
+                    checkArray[0] = 2;
+                    checkArray[1] = 3;
+                    checkArray[2] = 4;
+                    checkArray[3] = 5;
+
+                    if (Enumerable.SequenceEqual(checkArray, array))
+                        return true;
+                    else
+                        return false;
+                }
+                else if (array[0] == 3)
+                {
+                    checkArray[0] = 3;
+                    checkArray[1] = 4;
+                    checkArray[2] = 5;
+                    checkArray[3] = 6;
+
+                    if (Enumerable.SequenceEqual(checkArray, array))
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                    return false;
+            }
+            else
+            {
+                //Large straight
+                //Check if Lg Straight is 1,2,3,4,5 || 2,3,4,5,6
+                //Must remove duplicates in array
+                array = array.Distinct().ToArray();
+
+                if (array[0] == 1)
+                {
+                    checkArray[0] = 1;
+                    checkArray[1] = 2;
+                    checkArray[2] = 3;
+                    checkArray[3] = 4;
+                    checkArray[4] = 5;
+
+                    if (Enumerable.SequenceEqual(checkArray, array))
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    checkArray[0] = 2;
+                    checkArray[1] = 3;
+                    checkArray[2] = 4;
+                    checkArray[3] = 5;
+                    checkArray[4] = 6;
+
+                    if (Enumerable.SequenceEqual(checkArray, array))
+                        return true;
+                    else
+                        return false;
+                }
+            }
+        }
         private void btn3ofKind_Click(object sender, RoutedEventArgs e)
         {
-            if(lbl3ofKind.Content == string.Empty)
+            if (lbl3ofKind.Content == string.Empty)
             {
                 int num = 1;
                 int[] array = OrderDice(dice);
@@ -358,12 +449,12 @@ namespace Yahztee.WPF
                     }
                     num++;
                 }
-                if(turnTotal == 0)
+                if (turnTotal == 0)
                 {
                     lbl3ofKind.Content = "0";
                     ResetTurn();
                 }
-                
+
             }
         }
 
@@ -399,17 +490,91 @@ namespace Yahztee.WPF
 
         private void btnFullHouse_Click(object sender, RoutedEventArgs e)
         {
+            //Check for two of a kind and 3 of a kind...
+            if (lblFullHouse.Content == string.Empty)
+            {
+                int num = 1;
+                int num2 = 1;
+                int[] array = OrderDice(dice);
+                int turnTotal = 0;
+                while (num < 6)
+                {
+                    //2 of kind check, hence passing in 2
+                    if (OfKindCheck(array, num, 2))
+                    {
+                        //If num2 is not num for 2 of kind, then check for 3 of kind
+                        while (num2 < 6)
+                        {
+                            if (num2 != num)
+                            {
+                                if (OfKindCheck(array, num2, 3))
+                                {
+                                    turnTotal = (num * 2) + (num2 * 3);
 
+                                    lowerSectionTotal += turnTotal;
+                                    lblFullHouse.Content = turnTotal.ToString();
+                                    ResetTurn();
+                                    break;
+                                }
+                            }
+                            num2++;
+                        }
+                    }
+                    num++;
+                }
+            }
         }
-
         private void btnSmStraight_Click(object sender, RoutedEventArgs e)
         {
+            if (lblFullHouse.Content == string.Empty)
+            {
+                int[] array = OrderDice(dice);
+                int turnTotal = 0;
 
+                if (StraightCheck(array, 4))
+                {
+                    array = array.Distinct().ToArray();
+
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        turnTotal += array[i];
+                    }
+                    lowerSectionTotal += turnTotal;
+                    lblSmStraight.Content = turnTotal.ToString();
+                    ResetTurn();
+                }
+                else
+                {
+                    lblSmStraight.Content = "0";
+                    ResetTurn();
+                }
+            }
         }
-
         private void btnLgStraight_Click(object sender, RoutedEventArgs e)
         {
+            if (lblFullHouse.Content == string.Empty)
+            {
+                int[] array = OrderDice(dice);
+                int turnTotal = 0;
 
+                if (StraightCheck(array, 5))
+                {
+                    array = array.Distinct().ToArray();
+
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        turnTotal += array[i];
+                    }
+                    lowerSectionTotal += turnTotal;
+                    lblLgStraight.Content = turnTotal.ToString();
+                    ResetTurn();
+                }
+                else
+                {
+                    lblSmStraight.Content = "0";
+                    ResetTurn();
+                }
+            }
         }
 
         private void btnYahtzee_Click(object sender, RoutedEventArgs e)
@@ -447,7 +612,20 @@ namespace Yahztee.WPF
         }
         private void btnChance_Click(object sender, RoutedEventArgs e)
         {
+            if (lblFullHouse.Content == string.Empty)
+            {
+                int[] array = OrderDice(dice);
+                int turnTotal = 0;
 
+                for (int i = 0; i < array.Length; i++)
+                {
+                    turnTotal += array[i];
+                }
+
+                lowerSectionTotal += turnTotal;
+                lblChance.Content = turnTotal.ToString();
+                ResetTurn();
+            }
         }
     }
 }
