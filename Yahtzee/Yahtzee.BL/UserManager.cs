@@ -63,6 +63,26 @@ namespace Yahtzee.BL
             }
         }
 
+        public async static Task<User> LoadByUsername(string username)
+        {
+            using (var dc = new YahtzeeEntities())
+            {
+                tblUser row = dc.tblUsers.FirstOrDefault(row => row.Username == username);
+
+                User user = new User()
+                {
+                    Id = row.Id,
+                    FirstName = row.FirstName,
+                    LastName = row.LastName,
+                    Email = row.Email,
+                    Username = row.Username,
+                    Password = row.Password
+                };
+
+                return user;
+            }
+        }
+
         public async static Task<int> Insert(User user, bool rollback = false)
         {
             try
@@ -188,6 +208,56 @@ namespace Yahtzee.BL
                             if (tbluser != null)
                             {
                                 if (tbluser.Password == user.Password)
+                                {
+                                    user.FirstName = tbluser.FirstName;
+                                    user.LastName = tbluser.LastName;
+                                    user.Email = tbluser.Email;
+                                    user.Id = tbluser.Id;
+                                    return true;
+                                }
+                                else
+                                {
+                                    throw new LoginFailureException();
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("User Id could not be found.");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Password was not set.");
+                    }
+                }
+                else
+                {
+                    throw new Exception("User Id was not set.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public static bool Login(string username, string password)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(username))
+                {
+                    if (!string.IsNullOrEmpty(password))
+                    {
+                        User user = new User();
+                        using (YahtzeeEntities dc = new YahtzeeEntities())
+                        {
+                            tblUser tbluser = dc.tblUsers.FirstOrDefault(u => u.Username == username);
+                            if (tbluser != null)
+                            {
+                                if (tbluser.Password == password)
                                 {
                                     user.FirstName = tbluser.FirstName;
                                     user.LastName = tbluser.LastName;

@@ -23,15 +23,20 @@ namespace Yahztee.WPF
     public partial class YahtzeeCard : Window
     {
         int rollsLeft = 3;
+        int turnsLeft = 13;
         Die[] dice = new Die[5];
         int upperBonusCheck = 0;
         int upperSectionTotal = 0;
         int lowerSectionTotal = 0;
         int grandTotal = 0;
+        User user = new User();
 
-        public YahtzeeCard()
+        public YahtzeeCard(User user)
         {
             InitializeComponent();
+            this.user = user;
+            lblUsername.Content = user.Username + "'s Card";
+
             dice[0] = new Die();
             dice[1] = new Die();
             dice[2] = new Die();
@@ -80,6 +85,11 @@ namespace Yahztee.WPF
                     //User adds to their score when roll/turn is up, disable button until this happens
                     //Enable buttons to update scorecard
                     UpdateScorecard();
+
+                }
+
+                if(turnsLeft == 0)
+                {
 
                 }
             }
@@ -235,6 +245,7 @@ namespace Yahztee.WPF
             {
                 lblOne.Content = UpdateUpperSection(1);
                 ResetTurn();
+                turnsLeft--;
             }
         }
 
@@ -244,6 +255,7 @@ namespace Yahztee.WPF
             {
                 lblTwo.Content = UpdateUpperSection(2);
                 ResetTurn();
+                turnsLeft--;
             }
         }
         private void btnThree_Click(object sender, RoutedEventArgs e)
@@ -252,6 +264,7 @@ namespace Yahztee.WPF
             {
                 lblThree.Content = UpdateUpperSection(3);
                 ResetTurn();
+                turnsLeft--;
             }
         }
         private void btnFour_Click(object sender, RoutedEventArgs e)
@@ -260,6 +273,7 @@ namespace Yahztee.WPF
             {
                 lblFour.Content = UpdateUpperSection(4);
                 ResetTurn();
+                turnsLeft--;
             }
         }
 
@@ -269,6 +283,7 @@ namespace Yahztee.WPF
             {
                 lblFive.Content = UpdateUpperSection(5);
                 ResetTurn();
+                turnsLeft--;
             }
         }
 
@@ -278,6 +293,7 @@ namespace Yahztee.WPF
             {
                 lblSix.Content = UpdateUpperSection(6);
                 ResetTurn();
+                turnsLeft--;
             }
         }
         #endregion
@@ -347,12 +363,14 @@ namespace Yahztee.WPF
                 num++;
             }
 
+            //Must remove duplicates in array
+            array = array.Distinct().ToArray();
+
             //If its a small straight, only compare first four numbers in array
             if (whatKind == 4)
             {
                 //Check if array is 1,2,3,4 || 2,3,4,5 || 3,4,5,6
-                //Must remove duplicates in array
-                array = array.Distinct().ToArray();
+                
 
                 if (array[0] == 1)
                 {
@@ -396,9 +414,8 @@ namespace Yahztee.WPF
             else
             {
                 //Large straight
+
                 //Check if Lg Straight is 1,2,3,4,5 || 2,3,4,5,6
-                //Must remove duplicates in array
-                array = array.Distinct().ToArray();
 
                 if (array[0] == 1)
                 {
@@ -445,6 +462,7 @@ namespace Yahztee.WPF
                         lowerSectionTotal += turnTotal;
                         lbl3ofKind.Content = turnTotal.ToString();
                         ResetTurn();
+                        turnsLeft--;
                         break;
                     }
                     num++;
@@ -453,6 +471,7 @@ namespace Yahztee.WPF
                 {
                     lbl3ofKind.Content = "0";
                     ResetTurn();
+                    turnsLeft--;
                 }
 
             }
@@ -542,11 +561,13 @@ namespace Yahztee.WPF
                     lowerSectionTotal += turnTotal;
                     lblSmStraight.Content = turnTotal.ToString();
                     ResetTurn();
+                    turnsLeft--;
                 }
                 else
                 {
                     lblSmStraight.Content = "0";
                     ResetTurn();
+                    turnsLeft--;
                 }
             }
         }
@@ -568,11 +589,13 @@ namespace Yahztee.WPF
                     lowerSectionTotal += turnTotal;
                     lblLgStraight.Content = turnTotal.ToString();
                     ResetTurn();
+                    turnsLeft--;
                 }
                 else
                 {
                     lblSmStraight.Content = "0";
                     ResetTurn();
+                    turnsLeft--;
                 }
             }
         }
@@ -594,6 +617,7 @@ namespace Yahztee.WPF
                         lowerSectionTotal += turnTotal;
                         lblYahtzee.Content = turnTotal.ToString();
                         ResetTurn();
+                        turnsLeft--;
                         break;
                     }
                     num++;
@@ -602,6 +626,7 @@ namespace Yahztee.WPF
                 {
                     lblYahtzee.Content = "0";
                     ResetTurn();
+                    turnsLeft--;
                 }
 
             }
@@ -625,6 +650,7 @@ namespace Yahztee.WPF
                 lowerSectionTotal += turnTotal;
                 lblChance.Content = turnTotal.ToString();
                 ResetTurn();
+                turnsLeft--;
             }
         }
     }
