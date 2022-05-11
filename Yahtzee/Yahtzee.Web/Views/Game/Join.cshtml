@@ -25,10 +25,10 @@
             @Html.DisplayFor(model => model.Lobby.MaxPlayers)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Lobby.MaxPlayers)
+            @Html.DisplayNameFor(model => model.Lobby.LobbyName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Lobby.MaxPlayers)
+            @Html.DisplayFor(model => model.Lobby.LobbyName)
         </dd>
     </dl>
 </div>
@@ -66,9 +66,10 @@
             @{
                 var username = Model.User.Username;
                 string usernames = username;
+                var lobby = Model.Lobby.Id;
+                string lobbyid = lobby.ToString();
             }
             var name = "@usernames";
-            //var name = usernames;
 
 
             // Create a function that the hub can call to broadcast messages.
@@ -87,16 +88,21 @@
             connection.start()
                 .then(function () {
                     console.log('connection started');
+                    connection.invoke('JoinGroup', '@lobbyid');
+                    @{ 
+                        var test = "test";
+                    }
+
                     var liElement = document.createElement('li');
                     liElement.innerHTML = '<strong>' + name + '</strong>:&nbsp;&nbsp;' + 'Connected...';
                     document.getElementById('discussion').appendChild(liElement);
 
-                    connection.invoke('sendmessage', name, ": Connected");
+                    connection.invoke('sendmessagetogroup', "@lobbyid", name, ": Connected");
 
                     document.getElementById('sendmessage').addEventListener('click', function (event) {
                         // Call the Send method on the hub.
-                        connection.invoke('sendmessage', name, messageInput.value);
-                        //connection.invoke('sendmessagetogroup', "Room 2", name, messageInput.value);
+                        //connection.invoke('sendmessage', name, messageInput.value);
+                        connection.invoke('sendmessagetogroup', "@lobbyid", name, messageInput.value);
 
                         // Clear text box and reset focus for next comment.
                         messageInput.value = '';
