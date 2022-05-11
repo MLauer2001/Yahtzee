@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Yahtzee.BL.Models;
+using Yahtzee.Web.ViewModels;
 
 namespace Yahtzee.Web.Controllers
 {
@@ -46,7 +47,13 @@ namespace Yahtzee.Web.Controllers
             string result = response.Content.ReadAsStringAsync().Result;
             Lobby lobby = JsonConvert.DeserializeObject<Lobby>(result);
 
-            return View("Join", lobby);
+            GameVM gameVM = new GameVM();
+            string results = HttpContext.Session.GetString("user");
+            User user = JsonConvert.DeserializeObject<User>(results);
+            gameVM.User = user;
+            gameVM.Lobby = lobby;
+
+            return View("Join", gameVM);
         }
 
         // GET: LobbyController/Create

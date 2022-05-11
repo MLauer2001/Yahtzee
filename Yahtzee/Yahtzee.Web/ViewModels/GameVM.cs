@@ -9,5 +9,6 @@ namespace Yahtzee.Web.ViewModels
     public class GameVM
     {
         public User User { get; set; }
+        public Lobby Lobby { get; set; }
     }
 }

@@ -1,7 +1,9 @@
-﻿@model Yahtzee.BL.Models.Lobby
-
+﻿@model Yahtzee.Web.ViewModels.GameVM
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
 @{
-    ViewData["Title"] = "Join";
+    ViewBag.Title = "Vehicle Chat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Join</h1>
@@ -10,27 +12,107 @@
     <h4>Lobby</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lobby.Id)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lobby.Id)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxPlayers)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lobby.MaxPlayers)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaxPlayers)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lobby.MaxPlayers)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LobbyName)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lobby.MaxPlayers)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LobbyName)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lobby.MaxPlayers)
         </dd>
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Lobby.Id }) |
     <a asp-action="Index">Back to List</a>
 </div>
+
+<style>
+    input {
+        color: black;
+    }
+</style>
+
+<div class="container">
+    <input type="text" id="message" />
+    <input type="button" id="sendmessage" value="Send" />
+    <input type="hidden" id="displayname" value="Test" />
+    <ul id="discussion"></ul>
+</div>
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
+    <script>
+        $(function () {
+            console.log('Start the Hub');
+
+            var connection = new signalR.HubConnectionBuilder()
+                .withUrl('https://mryahtzeeapi.azurewebsites.net/GameHub')
+                .build();
+
+            console.log("After hub connection");
+
+            var messageInput = document.getElementById('message');
+            @{
+                var username = Model.User.Username;
+                string usernames = username;
+            }
+            var name = "@usernames";
+            //var name = usernames;
+
+
+            // Create a function that the hub can call to broadcast messages.
+            connection.on('receivemessage', function (name, message) {
+                // Html encode display name and message.
+                var encodedName = name;
+                var encodedMsg = message;
+                // Add the message to the page.
+
+                var liElement = document.createElement('li');
+                liElement.innerHTML = '<strong>' + encodedName + '</strong>:&nbsp;&nbsp;' + encodedMsg;
+                document.getElementById('discussion').appendChild(liElement);
+
+            });
+
+            connection.start()
+                .then(function () {
+                    console.log('connection started');
+                    var liElement = document.createElement('li');
+                    liElement.innerHTML = '<strong>' + name + '</strong>:&nbsp;&nbsp;' + 'Connected...';
+                    document.getElementById('discussion').appendChild(liElement);
+
+                    connection.invoke('sendmessage', name, ": Connected");
+
+                    document.getElementById('sendmessage').addEventListener('click', function (event) {
+                        // Call the Send method on the hub.
+                        connection.invoke('sendmessage', name, messageInput.value);
+                        //connection.invoke('sendmessagetogroup', "Room 2", name, messageInput.value);
+
+                        // Clear text box and reset focus for next comment.
+                        messageInput.value = '';
+                        messageInput.focus();
+                        event.preventDefault();
+                    });
+                })
+                .catch(error => {
+                    console.error(error.message);
+                });
+        });
+
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+
+    </script>
+}
