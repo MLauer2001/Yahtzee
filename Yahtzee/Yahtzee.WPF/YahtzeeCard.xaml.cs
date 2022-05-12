@@ -30,11 +30,13 @@ namespace Yahztee.WPF
         int lowerSectionTotal = 0;
         int grandTotal = 0;
         User user = new User();
+        Lobby lobby = new Lobby();
 
-        public YahtzeeCard(User user)
+        public YahtzeeCard(User user, Lobby lobby)
         {
             InitializeComponent();
             this.user = user;
+            this.lobby = lobby;
             lblUsername.Content = user.Username + "'s Card";
 
             dice[0] = new Die();
@@ -90,7 +92,7 @@ namespace Yahztee.WPF
 
                 if(turnsLeft == 0)
                 {
-
+                    grandTotal = upperSectionTotal + lowerSectionTotal;
                 }
             }
         }

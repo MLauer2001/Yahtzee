@@ -38,8 +38,8 @@ namespace Yahtzee.WPF
                 UserManager.Login(user.Username, user.Password);
                 user = UserManager.LoadByUsername(user.Username).Result;
 
-                YahtzeeCard yahtzee = new YahtzeeCard(user);
-                yahtzee.Show();
+                JoinLobby join = new JoinLobby(user);
+                join.Show();
                 Close();
             }
             catch (Exception ex)

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yahtzee.WPF"
         mc:Ignorable="d"
-        Title="Login" Height="450" Width="800">
-    <Grid>
+        Title="Login" Height="350" Width="600">
+    <Grid Margin="0,0,0,0">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black"/>
@@ -14,9 +14,9 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Label x:Name="Label" Content="Login to Play!" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" FontSize="48" FontWeight="Bold" Foreground="White"/>
-        <Label Content="Username:" HorizontalAlignment="Left" Margin="184,162,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" FontWeight="Bold"/>
-        <Label Content="Password:" HorizontalAlignment="Left" Margin="190,217,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" FontWeight="Bold" Height="38"/>
-        <TextBox x:Name="txtUsername" HorizontalAlignment="Center" Margin="0,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="146" Height="27" FontSize="18"/>
+        <Label Content="Username:" HorizontalAlignment="Left" Margin="85,162,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" FontWeight="Bold"/>
+        <Label Content="Password:" HorizontalAlignment="Left" Margin="91,217,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" FontWeight="Bold" Height="38"/>
+        <TextBox x:Name="txtUsername" HorizontalAlignment="Center" Margin="0,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="146" Height="27" FontSize="18"/>
         <TextBox x:Name="txtPassword" HorizontalAlignment="Center" Margin="0,222,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="146" Height="28" FontSize="18"/>
         <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Margin="0,269,0,0" VerticalAlignment="Top" Background="White" FontSize="18" FontWeight="Bold" Width="89" Click="btnLogin_Click" IsDefault="True"/>
         <Label x:Name="lblError" Content="" HorizontalAlignment="Center" Margin="0,135,0,0" VerticalAlignment="Top" FontSize="15" FontWeight="Bold" Foreground="Red" Width="357"/>
