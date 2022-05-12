@@ -39,7 +39,7 @@ namespace Yahztee.API
             {
                 builder.AllowAnyHeader()
                        .AllowAnyMethod()
-                       .SetIsOriginAllowed((host) => true)
+                       .SetIsOriginAllowed(origin => true)
                        .AllowCredentials();
             }));
 
