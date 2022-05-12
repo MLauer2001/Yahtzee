@@ -89,9 +89,6 @@
                 .then(function () {
                     console.log('connection started');
                     connection.invoke('JoinGroup', '@lobbyid');
-                    @{ 
-                        var test = "test";
-                    }
 
                     var liElement = document.createElement('li');
                     liElement.innerHTML = '<strong>' + name + '</strong>:&nbsp;&nbsp;' + 'Connected...';
