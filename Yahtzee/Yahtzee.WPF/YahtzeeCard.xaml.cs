@@ -135,6 +135,16 @@ namespace Yahztee.WPF
             btnHold3.IsEnabled = true;
             btnHold4.IsEnabled = true;
             btnHold5.IsEnabled = true;
+            foreach(var die in dice)
+                die.Hold = false;
+
+            Brush brush = new SolidColorBrush(Color.FromRgb(59, 64, 184));
+            btnHold1.Background = brush;
+            btnHold2.Background = brush;
+            btnHold3.Background = brush;
+            btnHold4.Background = brush;
+            btnHold5.Background = brush;
+
             btnRollDice.IsEnabled = true;
 
             btnOne.IsEnabled = false;
@@ -181,7 +191,8 @@ namespace Yahztee.WPF
             else
             {
                 dice[0].Hold = false;
-                btnHold1.Background = Brushes.Blue;
+                Brush brush = new SolidColorBrush(Color.FromRgb(59, 64, 184));
+                btnHold1.Background = brush;
             }
         }
 
@@ -194,8 +205,9 @@ namespace Yahztee.WPF
             }
             else
             {
-                dice[1].Hold = false;
-                btnHold2.Background = Brushes.Blue;
+                dice[1].Hold = false; 
+                Brush brush = new SolidColorBrush(Color.FromRgb(59, 64, 184));
+                btnHold2.Background = brush;
             }
         }
 
@@ -209,7 +221,8 @@ namespace Yahztee.WPF
             else
             {
                 dice[2].Hold = false;
-                btnHold3.Background = Brushes.Blue;
+                Brush brush = new SolidColorBrush(Color.FromRgb(59, 64, 184));
+                btnHold3.Background = brush;
             }
         }
 
@@ -223,7 +236,8 @@ namespace Yahztee.WPF
             else
             {
                 dice[3].Hold = false;
-                btnHold4.Background = Brushes.Blue;
+                Brush brush = new SolidColorBrush(Color.FromRgb(59, 64, 184));
+                btnHold4.Background = brush;
             }
         }
 
@@ -237,7 +251,8 @@ namespace Yahztee.WPF
             else
             {
                 dice[4].Hold = false;
-                btnHold5.Background = Brushes.Blue;
+                Brush brush = new SolidColorBrush(Color.FromRgb(59, 64, 184));
+                btnHold5.Background = brush;
             }
         }
 
