@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,7 @@ namespace Yahztee.WPF
         int grandTotal = 0;
         User user = new User();
         Lobby lobby = new Lobby();
+        private readonly ILogger<YahtzeeCard> _logger;
 
         public YahtzeeCard(User user, Lobby lobby)
         {
@@ -82,6 +84,8 @@ namespace Yahztee.WPF
                 rollsLeft--;
                 lblRollsLeft.Content = rollsLeft.ToString();
 
+                _logger.LogInformation("{Username} has {rolls} rolls left", user.Username, rollsLeft);
+
                 if (rollsLeft < 3)
                 {
                     //User adds to their score when roll/turn is up, disable button until this happens
@@ -93,6 +97,8 @@ namespace Yahztee.WPF
                 if(turnsLeft == 0)
                 {
                     grandTotal = upperSectionTotal + lowerSectionTotal;
+
+                    _logger.LogInformation("{Username} completed their scorecard at {time}", user.Username, DateTime.Now);
                 }
             }
         }
@@ -107,6 +113,8 @@ namespace Yahztee.WPF
                 btnHold3.IsEnabled = false;
                 btnHold4.IsEnabled = false;
                 btnHold5.IsEnabled = false;
+
+                _logger.LogInformation("{Username} updated their scorecard at {time}", user.Username, DateTime.Now);
             }
 
             btnOne.IsEnabled = true;
@@ -123,6 +131,7 @@ namespace Yahztee.WPF
             btnYahtzee.IsEnabled = true;
             btnChance.IsEnabled = true;
             btnYahtzeeBonus.IsEnabled = true;
+            
         }
 
         private void ResetTurn()
