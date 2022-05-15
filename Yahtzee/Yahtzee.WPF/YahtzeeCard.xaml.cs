@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace Yahztee.WPF
         int grandTotal = 0;
         User user = new User();
         Lobby lobby = new Lobby();
+        HubConnection _connection = new HubConnectionBuilder().WithUrl("https://mryahtzeeapi.azurewebsites.net/GameHub").Build();
         private readonly ILogger<YahtzeeCard> _logger;
 
         public YahtzeeCard(User user, Lobby lobby)

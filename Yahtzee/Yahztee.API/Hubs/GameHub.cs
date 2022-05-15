@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using Yahtzee.BL.Models;
 
 namespace Yahztee.API.Hubs
 {
@@ -21,6 +22,11 @@ namespace Yahztee.API.Hubs
         public Task SendMessageToGroup(string group, string user, string message)
         {
             return Clients.Group(group).SendAsync("ReceiveMessage", user, message);
+        }
+
+        public Task SendTurnToGroup(User user, Scorecard scorecard, string group, string message)
+        {
+            return Clients.Group(group).SendAsync("RecieveMessage", user, scorecard, message);
         }
     }
 }
