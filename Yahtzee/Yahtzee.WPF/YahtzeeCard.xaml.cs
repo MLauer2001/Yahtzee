@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using Castle.Core.Logging;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Yahtzee.BL;
 using Yahtzee.BL.Models;
+using Yahtzee.WPF;
 
 namespace Yahztee.WPF
 {
@@ -33,15 +36,28 @@ namespace Yahztee.WPF
         int grandTotal = 0;
         User user = new User();
         Lobby lobby = new Lobby();
-        HubConnection _connection = new HubConnectionBuilder().WithUrl("https://mryahtzeeapi.azurewebsites.net/GameHub").Build();
+        Scorecard scorecard = new Scorecard();
+        SignalRConnection signalR = new SignalRConnection();
+
+        
         private readonly ILogger<YahtzeeCard> _logger;
+
+        public YahtzeeCard(ILogger<YahtzeeCard> logger)
+        {
+            InitializeComponent(); 
+            _logger = logger;
+        }
 
         public YahtzeeCard(User user, Lobby lobby)
         {
             InitializeComponent();
             this.user = user;
             this.lobby = lobby;
+            scorecard.UserId = user.Id;
+            scorecard.Username = user.Username;
             lblUsername.Content = user.Username + "'s Card";
+            signalR.Start();
+
 
             dice[0] = new Die();
             dice[1] = new Die();
@@ -60,7 +76,7 @@ namespace Yahztee.WPF
             }
         }
 
-        private void RollDice_Click(object sender, RoutedEventArgs e)
+        private async void RollDice_Click(object sender, RoutedEventArgs e)
         {
             //CALL TO WEB TO CHECK IF ITS MY TURN...
 
@@ -87,6 +103,7 @@ namespace Yahztee.WPF
                 lblRollsLeft.Content = rollsLeft.ToString();
 
                 _logger.LogInformation("{Username} has {rolls} rolls left", user.Username, rollsLeft);
+                
 
                 if (rollsLeft < 3)
                 {
@@ -99,8 +116,17 @@ namespace Yahztee.WPF
                 if(turnsLeft == 0)
                 {
                     grandTotal = upperSectionTotal + lowerSectionTotal;
-
-                    _logger.LogInformation("{Username} completed their scorecard at {time}", user.Username, DateTime.Now);
+                    scorecard.GrandTotal = grandTotal;
+                    try
+                    {
+                        ScorecardManager.Insert(scorecard);
+                        _logger.LogInformation("{Username} completed their scorecard at {time}", user.Username, DateTime.Now);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                   
                 }
             }
         }
@@ -185,8 +211,33 @@ namespace Yahztee.WPF
                     turnScore += value;
                 }
             }
+
             //Update UppersectionTotal
             upperSectionTotal += turnScore;
+
+            switch (value)
+            {
+                case 1:
+                    scorecard.Aces = turnScore;
+                    break;
+                case 2:
+                    scorecard.Twos = turnScore;
+                    break;
+                case 3:
+                    scorecard.Threes = turnScore;
+                    break;
+                case 4:
+                    scorecard.Fours = turnScore;
+                    break;
+                case 5:
+                    scorecard.Fives = turnScore;
+                    break;
+                case 6:
+                    scorecard.Sixes = turnScore;
+                    break;
+                default:
+                    break;
+            }
             //Show score for that turn
             return turnScore;
         }

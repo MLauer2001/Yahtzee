@@ -26,7 +26,7 @@ namespace Yahztee.API.Hubs
 
         public Task SendTurnToGroup(User user, Scorecard scorecard, string group, string message)
         {
-            return Clients.Group(group).SendAsync("RecieveMessage", user, scorecard, message);
+            return Clients.Group(group).SendAsync("RecieveTurn", user, scorecard, message);
         }
     }
 }
