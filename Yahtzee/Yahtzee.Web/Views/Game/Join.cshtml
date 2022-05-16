@@ -6,48 +6,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Join</h1>
-
-<div>
-    <h4>Lobby</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Lobby.Id)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Lobby.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Lobby.MaxPlayers)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Lobby.MaxPlayers)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Lobby.LobbyName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Lobby.LobbyName)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Lobby.Id }) |
-    <a asp-action="Index">Back to List</a>
-</div>
-
 <style>
-    input {
-        color: black;
+    .chat {
+        align-content: end;
+        overflow-y: auto;
+        overflow-wrap: break-word;
     }
 </style>
 
-<div class="container">
+<div>
+    <h4>@Model.Lobby.LobbyName</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Player 1 Score:
+        </dt>
+        <dd class="col-sm-10">
+
+        </dd>
+        <dt class="col-sm-2">
+            Player 2 Score:
+        </dt>
+        <dd class="col-sm-10">
+
+        </dd>
+        <dt class="col-sm-2">
+            Player 3 Score:
+        </dt>
+        <dd class="col-sm-10">
+
+        </dd>
+        <dt class="col-sm-2">
+            Player 4 Score:
+        </dt>
+        <dd class="col-sm-10">
+
+        </dd>
+    </dl>
+</div>
+
+<div class="container chat">
+    <ul id="discussion"></ul>
     <input type="text" id="message" />
     <input type="button" id="sendmessage" value="Send" />
     <input type="hidden" id="displayname" value="Test" />
-    <ul id="discussion"></ul>
 </div>
 
 @section scripts {
@@ -101,6 +103,9 @@
                         //connection.invoke('sendmessage', name, messageInput.value);
                         connection.invoke('sendmessagetogroup', "@lobbyid", name, messageInput.value);
 
+                        var element = document.getElementById('discussion');
+                        element.scrollTop = element.scrollHeight;
+
                         // Clear text box and reset focus for next comment.
                         messageInput.value = '';
                         messageInput.focus();
@@ -116,6 +121,13 @@
             var encodedValue = $('<div />').text(value).html();
             return encodedValue;
         }
+
+        message.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("sendmessage").click();
+            }
+        });
 
     </script>
 }
