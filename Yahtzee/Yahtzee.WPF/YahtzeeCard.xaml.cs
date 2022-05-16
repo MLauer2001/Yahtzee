@@ -39,16 +39,10 @@ namespace Yahztee.WPF
         Scorecard scorecard = new Scorecard();
         SignalRConnection signalR = new SignalRConnection();
 
-        
+
         private readonly ILogger<YahtzeeCard> _logger;
 
-        public YahtzeeCard(ILogger<YahtzeeCard> logger)
-        {
-            InitializeComponent(); 
-            _logger = logger;
-        }
-
-        public YahtzeeCard(User user, Lobby lobby)
+        public YahtzeeCard(User user, Lobby lobby, ILogger<YahtzeeCard> logger)
         {
             InitializeComponent();
             this.user = user;
@@ -57,6 +51,8 @@ namespace Yahztee.WPF
             scorecard.Username = user.Username;
             lblUsername.Content = user.Username + "'s Card";
             signalR.Start();
+
+            _logger = logger;
 
 
             dice[0] = new Die();
