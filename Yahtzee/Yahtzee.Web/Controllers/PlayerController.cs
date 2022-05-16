@@ -75,7 +75,7 @@ namespace Yahtzee.Web.Controllers
 
         public async Task<ActionResult> Index()
         {
-            if (!Authenticate.IsAuthenticated(HttpContext))
+            if (Authenticate.IsAuthenticated(HttpContext))
             {
                 HttpClient client = InitializeClient();
 
@@ -93,7 +93,7 @@ namespace Yahtzee.Web.Controllers
             else
             {
                 return RedirectToAction("Login", "Player", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
-            }            
+            }
         }
 
         // GET: UserController/Details/5
@@ -104,7 +104,7 @@ namespace Yahtzee.Web.Controllers
 
             string result = response.Content.ReadAsStringAsync().Result;
             Scorecard scorecard = JsonConvert.DeserializeObject<Scorecard>(result);
-            
+
             return View("Details", scorecard);
         }
 
@@ -117,11 +117,18 @@ namespace Yahtzee.Web.Controllers
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(User user)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                user.Id = Guid.NewGuid();
+                HttpClient client = InitializeClient();
+                string serialziedResponse = JsonConvert.SerializeObject(user);
+                var content = new StringContent(serialziedResponse);
+                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+                HttpResponseMessage response = client.PostAsync("User/" + false, content).Result;
+
+                return RedirectToAction(nameof(Login));
             }
             catch
             {
