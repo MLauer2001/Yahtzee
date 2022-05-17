@@ -34,6 +34,22 @@ namespace Yahztee.WPF
         int upperSectionTotal = 0;
         int lowerSectionTotal = 0;
         int grandTotal = 0;
+
+        private int LowerSectionTotal
+        {
+            get { return lowerSectionTotal; }
+            set 
+            { 
+                lowerSectionTotal = value;
+                PropertyChanged();
+            }
+        }
+
+        private void PropertyChanged()
+        {
+            lblLowerSection.Content = LowerSectionTotal.ToString();
+        }
+
         User user = new User();
         Lobby lobby = new Lobby();
         Scorecard scorecard = new Scorecard();
@@ -112,11 +128,17 @@ namespace Yahztee.WPF
                     UpdateScorecard();
 
                 }
-
-                if(turnsLeft == 0)
+                if (lblYahtzee.Content == "50")
                 {
-                    grandTotal = upperSectionTotal + lowerSectionTotal;
+                    //User already has yahtzee...
+                    btnYahtzeeBonus.IsEnabled = true;
+                }
+
+                if (turnsLeft == 0)
+                {
+                    grandTotal = upperSectionTotal + LowerSectionTotal;
                     scorecard.GrandTotal = grandTotal;
+                    lblTotal.Content = grandTotal.ToString();
                     try
                     {
                         ScorecardManager.Insert(scorecard);
@@ -166,6 +188,7 @@ namespace Yahztee.WPF
         {
             //Disable the buttons, rolls back at 3
             rollsLeft = 3;
+            turnsLeft--;
 
             btnHold1.IsEnabled = true;
             btnHold2.IsEnabled = true;
@@ -200,6 +223,19 @@ namespace Yahztee.WPF
             btnYahtzeeBonus.IsEnabled = false;
 
             lblUpperSection.Content = upperSectionTotal.ToString();
+        }
+
+        private static int[] OrderDice(Die[] dice)
+        {
+            int[] array = new int[dice.Length];
+            for (int i = 0; i < dice.Length; i++)
+            {
+                array[i] = dice[i].Value;
+            }
+
+            int[] array2 = array.OrderBy(i => i).ToArray();
+
+            return array2;
         }
 
         #region UPPERSECTION
@@ -352,7 +388,7 @@ namespace Yahztee.WPF
                 lblOne.Content = UpdateUpperSection(1);
                 ResetTurn();
                 UpperBonusCheck();
-                turnsLeft--;
+                
             }
         }
 
@@ -363,7 +399,7 @@ namespace Yahztee.WPF
                 lblTwo.Content = UpdateUpperSection(2);
                 ResetTurn();
                 UpperBonusCheck();
-                turnsLeft--;
+                
             }
         }
         private void btnThree_Click(object sender, RoutedEventArgs e)
@@ -373,7 +409,7 @@ namespace Yahztee.WPF
                 lblThree.Content = UpdateUpperSection(3);
                 ResetTurn();
                 UpperBonusCheck();
-                turnsLeft--;
+                
             }
         }
         private void btnFour_Click(object sender, RoutedEventArgs e)
@@ -383,7 +419,7 @@ namespace Yahztee.WPF
                 lblFour.Content = UpdateUpperSection(4);
                 ResetTurn();
                 UpperBonusCheck();
-                turnsLeft--;
+                
             }
         }
 
@@ -394,7 +430,7 @@ namespace Yahztee.WPF
                 lblFive.Content = UpdateUpperSection(5);
                 ResetTurn();
                 UpperBonusCheck();
-                turnsLeft--;
+                
             }
         }
 
@@ -405,24 +441,13 @@ namespace Yahztee.WPF
                 lblSix.Content = UpdateUpperSection(6);
                 ResetTurn();
                 UpperBonusCheck();
-                turnsLeft--;
+                
             }
         }
         #endregion
 
-        private static int[] OrderDice(Die[] dice)
-        {
-            int[] array = new int[dice.Length];
-            for (int i = 0; i < dice.Length; i++)
-            {
-                array[i] = dice[i].Value;
-            }
 
-            int[] array2 = array.OrderBy(i => i).ToArray();
-
-            return array2;
-        }
-
+        #region LOWERSECTION
         private static bool OfKindCheck(int[] array, int num, int whatKind)
         {
             int[] numArray = new int[whatKind];
@@ -564,17 +589,17 @@ namespace Yahztee.WPF
                 int num = 1;
                 int[] array = OrderDice(dice);
                 int turnTotal = 0;
-                while (num < 6)
+                while (num < 7)
                 {
                     //3 of Kind check, hence passing in 3
                     if (OfKindCheck(array, num, 3))
                     {
                         turnTotal = num * 3;
 
-                        lowerSectionTotal += turnTotal;
+                        LowerSectionTotal += turnTotal;
                         lbl3ofKind.Content = turnTotal.ToString();
                         ResetTurn();
-                        turnsLeft--;
+                        
                         break;
                     }
                     num++;
@@ -583,7 +608,7 @@ namespace Yahztee.WPF
                 {
                     lbl3ofKind.Content = "0";
                     ResetTurn();
-                    turnsLeft--;
+                    
                 }
 
             }
@@ -596,14 +621,14 @@ namespace Yahztee.WPF
                 int num = 1;
                 int[] array = OrderDice(dice);
                 int turnTotal = 0;
-                while (num < 6)
+                while (num < 7)
                 {
                     //4 of Kind check, hence passing in 4
                     if (OfKindCheck(array, num, 4))
                     {
                         turnTotal = num * 4;
 
-                        lowerSectionTotal += turnTotal;
+                        LowerSectionTotal += turnTotal;
                         lblFourofKind.Content = turnTotal.ToString();
                         ResetTurn();
                         break;
@@ -628,13 +653,13 @@ namespace Yahztee.WPF
                 int num2 = 1;
                 int[] array = OrderDice(dice);
                 int turnTotal = 0;
-                while (num < 6)
+                while (num < 7)
                 {
                     //2 of kind check, hence passing in 2
                     if (OfKindCheck(array, num, 2))
                     {
                         //If num2 is not num for 2 of kind, then check for 3 of kind
-                        while (num2 < 6)
+                        while (num2 < 7)
                         {
                             if (num2 != num)
                             {
@@ -642,7 +667,7 @@ namespace Yahztee.WPF
                                 {
                                     turnTotal = (num * 2) + (num2 * 3);
 
-                                    lowerSectionTotal += turnTotal;
+                                    LowerSectionTotal += turnTotal;
                                     lblFullHouse.Content = turnTotal.ToString();
                                     ResetTurn();
                                     break;
@@ -657,7 +682,7 @@ namespace Yahztee.WPF
         }
         private void btnSmStraight_Click(object sender, RoutedEventArgs e)
         {
-            if (lblFullHouse.Content == string.Empty)
+            if (lblSmStraight.Content == string.Empty)
             {
                 int[] array = OrderDice(dice);
                 int turnTotal = 0;
@@ -670,22 +695,22 @@ namespace Yahztee.WPF
                     {
                         turnTotal += array[i];
                     }
-                    lowerSectionTotal += turnTotal;
+                    LowerSectionTotal += turnTotal;
                     lblSmStraight.Content = turnTotal.ToString();
                     ResetTurn();
-                    turnsLeft--;
+                    
                 }
                 else
                 {
                     lblSmStraight.Content = "0";
                     ResetTurn();
-                    turnsLeft--;
+                    
                 }
             }
         }
         private void btnLgStraight_Click(object sender, RoutedEventArgs e)
         {
-            if (lblFullHouse.Content == string.Empty)
+            if (lblLgStraight.Content == string.Empty)
             {
                 int[] array = OrderDice(dice);
                 int turnTotal = 0;
@@ -698,16 +723,16 @@ namespace Yahztee.WPF
                     {
                         turnTotal += array[i];
                     }
-                    lowerSectionTotal += turnTotal;
+                    LowerSectionTotal += turnTotal;
                     lblLgStraight.Content = turnTotal.ToString();
                     ResetTurn();
-                    turnsLeft--;
+                    
                 }
                 else
                 {
                     lblSmStraight.Content = "0";
                     ResetTurn();
-                    turnsLeft--;
+                    
                 }
             }
         }
@@ -726,10 +751,10 @@ namespace Yahztee.WPF
                     {
                         turnTotal = 50;
 
-                        lowerSectionTotal += turnTotal;
+                        LowerSectionTotal += turnTotal;
                         lblYahtzee.Content = turnTotal.ToString();
                         ResetTurn();
-                        turnsLeft--;
+                        
                         break;
                     }
                     num++;
@@ -738,18 +763,14 @@ namespace Yahztee.WPF
                 {
                     lblYahtzee.Content = "0";
                     ResetTurn();
-                    turnsLeft--;
+                    
                 }
 
-            }
-            else if (lblYahtzee.Content == "50")
-            {
-                //Yahtzee BONUS logic here
             }
         }
         private void btnChance_Click(object sender, RoutedEventArgs e)
         {
-            if (lblFullHouse.Content == string.Empty)
+            if (lblChance.Content == string.Empty)
             {
                 int[] array = OrderDice(dice);
                 int turnTotal = 0;
@@ -759,11 +780,43 @@ namespace Yahztee.WPF
                     turnTotal += array[i];
                 }
 
-                lowerSectionTotal += turnTotal;
+                LowerSectionTotal += turnTotal;
                 lblChance.Content = turnTotal.ToString();
                 ResetTurn();
-                turnsLeft--;
+                
             }
         }
+
+        private void btnYahtzeeBonus_Click(object sender, RoutedEventArgs e)
+        {
+            if (lblYahtzee.Content == string.Empty)
+            {
+                int num = 1;
+                int[] array = OrderDice(dice);
+                int turnTotal = 0;
+                while (num < 6)
+                {
+                    //Yahtzee check, hence passing in 5
+                    if (OfKindCheck(array, num, 5))
+                    {
+                        turnTotal = 50;
+
+                        LowerSectionTotal += turnTotal;
+                        lblYahtzeeBonus.Content = turnTotal.ToString();
+                        ResetTurn();
+                        
+                        break;
+                    }
+                    num++;
+                }
+                if (turnTotal == 0)
+                {
+                    lblYahtzee.Content = "0";
+                    ResetTurn();
+                    
+                }
+            }
+        }
+        #endregion
     }
 }
