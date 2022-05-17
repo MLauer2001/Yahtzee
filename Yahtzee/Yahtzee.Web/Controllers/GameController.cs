@@ -59,6 +59,12 @@ namespace Yahtzee.Web.Controllers
             GameVM gameVM = new GameVM();
             string results = HttpContext.Session.GetString("user");
             User user = JsonConvert.DeserializeObject<User>(results);
+
+            HttpResponseMessage responses = client.GetAsync("Scorecard/" + id + true).Result;
+            string resulting = responses.Content.ReadAsStringAsync().Result;
+            Scorecard scorecard = JsonConvert.DeserializeObject<Scorecard>(resulting);
+
+            gameVM.Scorecard = scorecard;
             gameVM.User = user;
             gameVM.Lobby = lobby;
 

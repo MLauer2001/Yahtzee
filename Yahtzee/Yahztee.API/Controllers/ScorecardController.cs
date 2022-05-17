@@ -27,12 +27,26 @@ namespace Yahztee.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Scorecard>> Get(Guid id)
         {
             try
             {
                 return Ok(await ScorecardManager.LoadById(id));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("{userId}/{run}")]
+        public async Task<ActionResult<Scorecard>> GetUserId(Guid userId, bool run = true)
+        {
+            try
+            {
+                return Ok(await ScorecardManager.LoadByUserId(userId));
             }
             catch (Exception ex)
             {

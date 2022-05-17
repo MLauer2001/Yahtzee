@@ -14,42 +14,11 @@
     }
 </style>
 
-<div>
-    <h4>@Model.Lobby.LobbyName</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            Player 1 Score:
-        </dt>
-        <dd class="col-sm-10">
-
-        </dd>
-        <dt class="col-sm-2">
-            Player 2 Score:
-        </dt>
-        <dd class="col-sm-10">
-
-        </dd>
-        <dt class="col-sm-2">
-            Player 3 Score:
-        </dt>
-        <dd class="col-sm-10">
-
-        </dd>
-        <dt class="col-sm-2">
-            Player 4 Score:
-        </dt>
-        <dd class="col-sm-10">
-
-        </dd>
-    </dl>
-</div>
-
 <div class="container chat">
-    <ul id="discussion"></ul>
     <input type="text" id="message" />
     <input type="button" id="sendmessage" value="Send" />
     <input type="hidden" id="displayname" value="Test" />
+    <ul id="discussion"></ul>
 </div>
 
 @section scripts {
@@ -85,6 +54,20 @@
                 liElement.innerHTML = '<strong>' + encodedName + '</strong>:&nbsp;&nbsp;' + encodedMsg;
                 document.getElementById('discussion').appendChild(liElement);
 
+            });
+
+            @{ 
+                var totalScore = Model.Scorecard.GrandTotal;
+                string score = totalScore.ToString();
+            }
+
+            connection.on('receiveturn', function (name, score){
+                var encodedName = name;
+                var encodedScore = score;
+
+                var liElement = document.createElement('li');
+                liElement.innerHTML = encodedName + ' has taken their turn. Their total is now ' + encodedScore + ' points.';
+                document.getElementById('discussion').appendChild(liElement);
             });
 
             connection.start()

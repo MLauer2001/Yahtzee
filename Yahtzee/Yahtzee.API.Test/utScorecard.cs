@@ -64,6 +64,26 @@ namespace Yahtzee.API.Test
         }
 
         [TestMethod]
+        public void GetUserIdTest()
+        {
+            HttpResponseMessage response;
+            string result;
+            dynamic items;
+
+            response = client.GetAsync("User").Result;
+            result = response.Content.ReadAsStringAsync().Result;
+            items = (JArray)JsonConvert.DeserializeObject(result);
+            List<User> users = items.ToObject<List<User>>();
+            User user = users[0];
+
+            Guid guid = user.Id;
+            bool run = true;
+            response = client.GetAsync("Scorecard/" + guid + "/" + run).Result;
+
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
+
+        [TestMethod]
         public void PostTest()
         {
             // Get UserId

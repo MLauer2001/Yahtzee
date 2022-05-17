@@ -10,5 +10,6 @@ namespace Yahtzee.Web.ViewModels
     {
         public User User { get; set; }
         public Lobby Lobby { get; set; }
+        public Scorecard Scorecard { get; set; }
     }
 }
