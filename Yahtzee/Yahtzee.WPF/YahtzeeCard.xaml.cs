@@ -50,6 +50,7 @@ namespace Yahztee.WPF
             lblLowerSection.Content = LowerSectionTotal.ToString();
         }
 
+        UserLobby userLobby = new UserLobby();
         User user = new User();
         Lobby lobby = new Lobby();
         Scorecard scorecard = new Scorecard();
@@ -61,11 +62,14 @@ namespace Yahztee.WPF
         public YahtzeeCard(UserLobby userLobby)
         {
             InitializeComponent();
+            this.userLobby = userLobby;
             this.user = UserManager.LoadById(userLobby.UserId).Result;
             this.lobby = LobbyManager.LoadById(userLobby.LobbyId).Result;
 
             if(userLobby.ScorecardId != Guid.Empty)
                 this.scorecard = ScorecardManager.LoadById(userLobby.ScorecardId).Result;
+            else 
+                scorecard.Id = Guid.NewGuid();
 
             scorecard.UserId = user.Id;
             scorecard.Username = user.Username;
@@ -181,7 +185,6 @@ namespace Yahztee.WPF
             btnYahtzee.IsEnabled = true;
             btnChance.IsEnabled = true;
             btnYahtzeeBonus.IsEnabled = true;
-            
         }
 
         private void ResetTurn()
@@ -189,6 +192,9 @@ namespace Yahztee.WPF
             //Disable the buttons, rolls back at 3
             rollsLeft = 3;
             turnsLeft--;
+
+            ScorecardManager.Update(scorecard);
+            signalR.SendTurnToLobby(userLobby);
 
             btnHold1.IsEnabled = true;
             btnHold2.IsEnabled = true;
@@ -291,12 +297,14 @@ namespace Yahztee.WPF
                 if (upperSectionTotal >= 63)
                 {
                     upperSectionTotal += 35;
+                    scorecard.Bonus = 35;
                     lblBonus.Content = "35";
                     lblUpperSection.Content = upperSectionTotal.ToString();
                     return true;
                 }
                 else
                 {
+                    scorecard.Bonus = 0;
                     lblBonus.Content = "0";
                     return false;
                 }
@@ -597,6 +605,7 @@ namespace Yahztee.WPF
                         turnTotal = num * 3;
 
                         LowerSectionTotal += turnTotal;
+                        scorecard.ThreeOfKind = turnTotal;
                         lbl3ofKind.Content = turnTotal.ToString();
                         ResetTurn();
                         
@@ -629,6 +638,7 @@ namespace Yahztee.WPF
                         turnTotal = num * 4;
 
                         LowerSectionTotal += turnTotal;
+                        scorecard.FourOfKind = turnTotal;
                         lblFourofKind.Content = turnTotal.ToString();
                         ResetTurn();
                         break;
@@ -668,6 +678,7 @@ namespace Yahztee.WPF
                                     turnTotal = (num * 2) + (num2 * 3);
 
                                     LowerSectionTotal += turnTotal;
+                                    scorecard.FullHouse = turnTotal;
                                     lblFullHouse.Content = turnTotal.ToString();
                                     ResetTurn();
                                     break;
@@ -696,6 +707,7 @@ namespace Yahztee.WPF
                         turnTotal += array[i];
                     }
                     LowerSectionTotal += turnTotal;
+                    scorecard.SmStraight = turnTotal;
                     lblSmStraight.Content = turnTotal.ToString();
                     ResetTurn();
                     
@@ -724,13 +736,14 @@ namespace Yahztee.WPF
                         turnTotal += array[i];
                     }
                     LowerSectionTotal += turnTotal;
+                    scorecard.LgStraight = turnTotal;
                     lblLgStraight.Content = turnTotal.ToString();
                     ResetTurn();
                     
                 }
                 else
                 {
-                    lblSmStraight.Content = "0";
+                    lblLgStraight.Content = "0";
                     ResetTurn();
                     
                 }
@@ -752,6 +765,7 @@ namespace Yahztee.WPF
                         turnTotal = 50;
 
                         LowerSectionTotal += turnTotal;
+                        scorecard.Yahtzee = turnTotal;
                         lblYahtzee.Content = turnTotal.ToString();
                         ResetTurn();
                         
@@ -781,6 +795,7 @@ namespace Yahztee.WPF
                 }
 
                 LowerSectionTotal += turnTotal;
+                scorecard.Chance = turnTotal;
                 lblChance.Content = turnTotal.ToString();
                 ResetTurn();
                 

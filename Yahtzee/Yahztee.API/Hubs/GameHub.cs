@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using Yahtzee.BL;
 using Yahtzee.BL.Models;
 
 namespace Yahztee.API.Hubs
@@ -24,9 +25,13 @@ namespace Yahztee.API.Hubs
             return Clients.Group(group).SendAsync("ReceiveMessage", user, message);
         }
 
-        public Task SendTurnToGroup(User user, Scorecard scorecard, string group, string message)
+        public async Task SendTurn(UserLobby userLobby, string group)
         {
-            return Clients.Group(group).SendAsync("RecieveTurn", user, scorecard, message);
+            User user = await UserManager.LoadById(userLobby.UserId);
+            Lobby lobby = await LobbyManager.LoadById(userLobby.LobbyId);
+            Scorecard scorecard = await ScorecardManager.LoadById(userLobby.ScorecardId);
+
+            await Clients.Group(group).SendAsync("ReceiveTurn", user.Username + " has sent their turn");
         }
     }
 }

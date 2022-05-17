@@ -18,23 +18,38 @@ namespace Yahtzee.WPF
                 .WithUrl("https://mryahtzeeapi.azurewebsites.net/GameHub")
                 .Build();
 
-            _connection.On<User, Scorecard>("RecieveTurn", (user, scorecard) => OnSendTurn(user, scorecard));
+            _connection.On<UserLobby>("SendTurn", (userlobby) => SendTurnToLobby(userlobby));
 
             _connection.StartAsync();
         }
 
-        private void OnSendTurn(User user, Scorecard scorecard)
+        private void OnSendTurn(UserLobby userLobby)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Sending user information to web...");
         }
 
-        public void SendTurnToLobby(User user, Scorecard scorecard)
+        public void SendTurnToLobby(UserLobby userlobby)
         {
             try
             {
-                Console.WriteLine("Sending {user}'s scorecard", user.Username);
+                Console.WriteLine("Sending scorecard...");
 
-                _connection.InvokeAsync("RecieveTurn", user, scorecard);
+                _connection.InvokeAsync("SendTurn", userlobby);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void ConnectToChannel(string user)
+        {
+            Start();
+
+            string message = user + " Connected...";
+            try
+            {
+                _connection.InvokeAsync("SendMessage", message);
             }
             catch (Exception ex)
             {
