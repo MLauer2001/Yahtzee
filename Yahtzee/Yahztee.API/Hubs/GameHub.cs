@@ -31,7 +31,7 @@ namespace Yahztee.API.Hubs
             Lobby lobby = await LobbyManager.LoadById(userLobby.LobbyId);
             Scorecard scorecard = await ScorecardManager.LoadById(userLobby.ScorecardId);
 
-            await Clients.Group(group).SendAsync("ReceiveTurn", user.Username + " has sent their turn");
+            await Clients.Group(group).SendAsync("ReceiveTurn", user.Username + " has sent their turn", user, lobby, scorecard);
         }
     }
 }

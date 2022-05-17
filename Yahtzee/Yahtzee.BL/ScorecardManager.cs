@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yahtzee.BL.Models;
 using Yahtzee.PL;
+using Yahtzee.Utilities.Reporting;
 
 namespace Yahtzee.BL
 {
@@ -331,6 +332,61 @@ namespace Yahtzee.BL
 
         #endregion
 
+
+        public static void Export(List<Scorecard> scorecards)
+        {
+            try
+            {
+                string[,] data = new string[scorecards.Count + 1, 5];
+                int counter = 0;
+
+                data[counter, 0] = "Username";
+                data[counter, 1] = "GrandTotal";
+                data[counter, 2] = "Aces";
+                data[counter, 3] = "Twos";
+                data[counter, 4] = "Threes";
+                data[counter, 5] = "Fours";
+                data[counter, 6] = "Fives";
+                data[counter, 7] = "Sixes";
+                data[counter, 8] = "Bonus";
+                data[counter, 9] = "Three of a Kind";
+                data[counter, 10] = "Four of a Kind";
+                data[counter, 11] = "Full House";
+                data[counter, 12] = "Small Straight";
+                data[counter, 13] = "Large Straight";
+                data[counter, 14] = "Yahtzee";
+                data[counter, 15] = "Chance";
+                counter++;
+
+                foreach (Scorecard s in scorecards)
+                {
+                    data[counter, 0] = s.Username;
+                    data[counter, 1] = s.GrandTotal.ToString();
+                    data[counter, 2] = s.Aces.ToString();
+                    data[counter, 3] = s.Twos.ToString();
+                    data[counter, 4] = s.Threes.ToString();
+                    data[counter, 5] = s.Fours.ToString();
+                    data[counter, 6] = s.Fives.ToString();
+                    data[counter, 7] = s.Sixes.ToString();
+                    data[counter, 8] = s.Bonus.ToString();
+                    data[counter, 9] = s.ThreeOfKind.ToString();
+                    data[counter, 10] = s.FourOfKind.ToString();
+                    data[counter, 11] = s.FullHouse.ToString();
+                    data[counter, 12] = s.SmStraight.ToString();
+                    data[counter, 13] = s.LgStraight.ToString();
+                    data[counter, 14] = s.Yahtzee.ToString();
+                    data[counter, 15] = s.Chance.ToString();
+                    counter++;
+                }
+
+                Excel.Export("Scorecards.xlsx", data);
+            }
+            catch (Exception ex)
+            {
+
+                //throw ex;
+            }
+        }
 
         public async static Task<int> UpdateByUserId(Guid userId, Scorecard scorecard, bool rollback = false)
         {

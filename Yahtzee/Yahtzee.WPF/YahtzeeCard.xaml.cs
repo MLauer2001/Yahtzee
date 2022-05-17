@@ -67,12 +67,19 @@ namespace Yahztee.WPF
             this.lobby = LobbyManager.LoadById(userLobby.LobbyId).Result;
 
             if(userLobby.ScorecardId != Guid.Empty)
+            {
                 this.scorecard = ScorecardManager.LoadById(userLobby.ScorecardId).Result;
-            else 
+                scorecard.UserId = user.Id;
+                scorecard.Username = user.Username;
+            }
+            else
+            {
                 scorecard.Id = Guid.NewGuid();
-
-            scorecard.UserId = user.Id;
-            scorecard.Username = user.Username;
+                scorecard.UserId = user.Id;
+                scorecard.Username = user.Username;
+                ScorecardManager.Insert(scorecard);
+            }
+                
             lblUsername.Content = user.Username + "'s Card";
             signalR.Start();
 
@@ -145,7 +152,7 @@ namespace Yahztee.WPF
                     lblTotal.Content = grandTotal.ToString();
                     try
                     {
-                        ScorecardManager.Insert(scorecard);
+                        ScorecardManager.Update(scorecard);
                         _logger.LogInformation("{Username} completed their scorecard at {time}", user.Username, DateTime.Now);
                     }
                     catch (Exception ex)
@@ -193,6 +200,7 @@ namespace Yahztee.WPF
             rollsLeft = 3;
             turnsLeft--;
 
+            scorecard.GrandTotal = grandTotal;
             ScorecardManager.Update(scorecard);
             signalR.SendTurnToLobby(userLobby);
 

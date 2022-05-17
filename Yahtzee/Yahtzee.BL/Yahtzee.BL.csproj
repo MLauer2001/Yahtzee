@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Yahtzee.BL.Models\Yahtzee.BL.Models.csproj" />
     <ProjectReference Include="..\Yahtzee.PL\Yahtzee.PL.csproj" />
+    <ProjectReference Include="..\Yahtzee.Utilities.Reporting\Yahtzee.Utilities.Reporting.csproj" />
   </ItemGroup>
 
 </Project>
