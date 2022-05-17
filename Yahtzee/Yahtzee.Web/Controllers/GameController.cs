@@ -60,9 +60,31 @@ namespace Yahtzee.Web.Controllers
             string results = HttpContext.Session.GetString("user");
             User user = JsonConvert.DeserializeObject<User>(results);
 
-            HttpResponseMessage responses = client.GetAsync("Scorecard/" + id + true).Result;
-            string resulting = responses.Content.ReadAsStringAsync().Result;
-            Scorecard scorecard = JsonConvert.DeserializeObject<Scorecard>(resulting);
+            Scorecard scorecard = new Scorecard
+            {
+                Id = Guid.NewGuid(),
+                UserId = user.Id,
+                Aces = 0,
+                Twos = 0,
+                Threes = 0,
+                Fours = 0,
+                Fives = 0,
+                Sixes = 0,
+                ThreeOfKind = 0,
+                FourOfKind = 0,
+                SmStraight = 0,
+                LgStraight = 0,
+                FullHouse = 0,
+                Chance = 0,
+                Yahtzee = 0,
+                Bonus = 0,
+                GrandTotal = 50
+            };
+
+            bool rollback = false;
+            string serialziedResponse = JsonConvert.SerializeObject(scorecard);
+            var content = new StringContent(serialziedResponse);
+            HttpResponseMessage responses = client.PostAsync("Scorecard/" + rollback, content).Result;
 
             gameVM.Scorecard = scorecard;
             gameVM.User = user;

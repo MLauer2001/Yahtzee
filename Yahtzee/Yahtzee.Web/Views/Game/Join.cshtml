@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Http;
 @inject IHttpContextAccessor HttpContextAccessor
 @{
-    ViewBag.Title = "Vehicle Chat";
+    ViewBag.Title = "Yahtzee Game";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,6 +18,7 @@
     <input type="text" id="message" />
     <input type="button" id="sendmessage" value="Send" />
     <input type="hidden" id="displayname" value="Test" />
+    <input type="button" id="sendturn" value="Send Turn" />
     <ul id="discussion"></ul>
 </div>
 
@@ -43,6 +44,14 @@
             var name = "@usernames";
 
 
+
+            @{
+                var scores = Model.Scorecard.GrandTotal;
+                int grandTotal = scores;
+            }
+            var score = "@scores";
+
+
             // Create a function that the hub can call to broadcast messages.
             connection.on('receivemessage', function (name, message) {
                 // Html encode display name and message.
@@ -56,17 +65,12 @@
 
             });
 
-            @{ 
-                var totalScore = Model.Scorecard.GrandTotal;
-                string score = totalScore.ToString();
-            }
-
             connection.on('receiveturn', function (name, score){
                 var encodedName = name;
-                var encodedScore = score;
+                var encodedTotal = score;
 
                 var liElement = document.createElement('li');
-                liElement.innerHTML = encodedName + ' has taken their turn. Their total is now ' + encodedScore + ' points.';
+                liElement.innerHTML = encodedName + ' has taken their turn. Their total is now ' + encodedTotal + ' points.';
                 document.getElementById('discussion').appendChild(liElement);
             });
 
@@ -76,10 +80,10 @@
                     connection.invoke('JoinGroup', '@lobbyid');
 
                     var liElement = document.createElement('li');
-                    liElement.innerHTML = '<strong>' + name + '</strong>:&nbsp;&nbsp;' + 'Connected...';
+                    liElement.innerHTML = '<strong>' + name + '</strong>:&nbsp;&nbsp;' + 'Connecting...';
                     document.getElementById('discussion').appendChild(liElement);
 
-                    connection.invoke('sendmessagetogroup', "@lobbyid", name, ": Connected");
+                    connection.invoke('sendmessagetogroup', "@lobbyid", name, "Connected ");
 
                     document.getElementById('sendmessage').addEventListener('click', function (event) {
                         // Call the Send method on the hub.
@@ -93,6 +97,13 @@
                         messageInput.value = '';
                         messageInput.focus();
                         event.preventDefault();
+                    });
+
+                    document.getElementById('sendturn').addEventListener('click', function (event) {
+                        connection.invoke('sendturntogroup', "@lobbyid", name, score);
+
+                        var element = document.getElementById('discussion');
+                        element.scrollTop = element.scrollHeight;
                     });
                 })
                 .catch(error => {
