@@ -31,7 +31,7 @@ namespace Yahtzee.Utilities.Reporting
                     .SetFontSize(20);
                 document.Add(header);
 
-                Paragraph subHeader = new Paragraph("Information")
+                Paragraph subHeader = new Paragraph("Scorecards")
                     .SetTextAlignment(TextAlignment.CENTER)
                     .SetFontSize(15);
                 document.Add(subHeader);

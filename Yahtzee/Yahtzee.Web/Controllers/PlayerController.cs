@@ -136,6 +136,22 @@ namespace Yahtzee.Web.Controllers
             }
         }
 
+        public ActionResult Export()
+        {
+            try
+            {
+                List<Scorecard> scorecards = new List<Scorecard>();
+                scorecards = ScorecardManager.Load().Result;
+                ScorecardManager.Export(scorecards);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         // GET: UserController/Edit/5
         public ActionResult Edit(int id)
         {
