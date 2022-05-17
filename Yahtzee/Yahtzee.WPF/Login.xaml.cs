@@ -33,12 +33,15 @@ namespace Yahtzee.WPF
             user.Username = txtUsername.Text;
             user.Password = txtPassword.Text;
 
+            UserLobby userLobby = new UserLobby();
+
             try
             {
                 UserManager.Login(user.Username, user.Password);
                 user = UserManager.LoadByUsername(user.Username).Result;
+                userLobby.UserId = user.Id;
 
-                JoinLobby join = new JoinLobby(user);
+                JoinLobby join = new JoinLobby(userLobby);
                 join.Show();
                 Close();
             }

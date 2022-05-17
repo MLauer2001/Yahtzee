@@ -416,7 +416,7 @@ namespace Yahtzee.BL
             {
                 if (die.Hold == false)
                 {
-                    die.Value = RandomNumberGenerator.GetInt32(1, 6);
+                    die.Value = RandomNumberGenerator.GetInt32(1, 7);
                 }
             }
 

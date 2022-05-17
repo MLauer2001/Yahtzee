@@ -23,12 +23,12 @@ namespace Yahtzee.WPF
     /// </summary>
     public partial class JoinLobby : Window
     {
-        User user = new User();
+        UserLobby userLobby = new UserLobby();
         List<Lobby> lobbies = new List<Lobby>();
-        public JoinLobby(User user)
+        public JoinLobby(UserLobby userLobby)
         {
             InitializeComponent();
-            this.user = user;
+            this.userLobby = userLobby;
             lobbies = LobbyManager.Load().Result;
 
             lbxLobbies.ItemsSource = lobbies;
@@ -39,10 +39,10 @@ namespace Yahtzee.WPF
 
         private void btnJoinLobby_Click(object sender, RoutedEventArgs e)
         {
-            Lobby lobby = new Lobby();
-            lobby = lobbies[lbxLobbies.SelectedIndex];
 
-            YahtzeeCard yahtzee = new YahtzeeCard(user, lobby);
+            userLobby.LobbyId = lobbies[lbxLobbies.SelectedIndex].Id;
+
+            YahtzeeCard yahtzee = new YahtzeeCard(userLobby);
             yahtzee.Show();
             Close();
         }

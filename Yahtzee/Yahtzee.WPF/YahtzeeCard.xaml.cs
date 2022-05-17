@@ -42,17 +42,21 @@ namespace Yahztee.WPF
 
         private readonly ILogger<YahtzeeCard> _logger;
 
-        public YahtzeeCard(User user, Lobby lobby, ILogger<YahtzeeCard> logger)
+        public YahtzeeCard(UserLobby userLobby)
         {
             InitializeComponent();
-            this.user = user;
-            this.lobby = lobby;
+            this.user = UserManager.LoadById(userLobby.UserId).Result;
+            this.lobby = LobbyManager.LoadById(userLobby.LobbyId).Result;
+
+            if(userLobby.ScorecardId != Guid.Empty)
+                this.scorecard = ScorecardManager.LoadById(userLobby.ScorecardId).Result;
+
             scorecard.UserId = user.Id;
             scorecard.Username = user.Username;
             lblUsername.Content = user.Username + "'s Card";
             signalR.Start();
 
-            _logger = logger;
+            //_logger = logger;
 
 
             dice[0] = new Die();
@@ -98,7 +102,7 @@ namespace Yahztee.WPF
                 rollsLeft--;
                 lblRollsLeft.Content = rollsLeft.ToString();
 
-                _logger.LogInformation("{Username} has {rolls} rolls left", user.Username, rollsLeft);
+                //_logger.LogInformation("{Username} has {rolls} rolls left", user.Username, rollsLeft);
                 
 
                 if (rollsLeft < 3)
@@ -138,7 +142,7 @@ namespace Yahztee.WPF
                 btnHold4.IsEnabled = false;
                 btnHold5.IsEnabled = false;
 
-                _logger.LogInformation("{Username} updated their scorecard at {time}", user.Username, DateTime.Now);
+                //_logger.LogInformation("{Username} updated their scorecard at {time}", user.Username, DateTime.Now);
             }
 
             btnOne.IsEnabled = true;
@@ -194,6 +198,8 @@ namespace Yahztee.WPF
             btnYahtzee.IsEnabled = false;
             btnChance.IsEnabled = false;
             btnYahtzeeBonus.IsEnabled = false;
+
+            lblUpperSection.Content = upperSectionTotal.ToString();
         }
 
         #region UPPERSECTION
@@ -210,6 +216,7 @@ namespace Yahztee.WPF
 
             //Update UppersectionTotal
             upperSectionTotal += turnScore;
+
 
             switch (value)
             {
@@ -236,6 +243,30 @@ namespace Yahztee.WPF
             }
             //Show score for that turn
             return turnScore;
+        }
+
+        private bool UpperBonusCheck()
+        {
+            if (lblOne.Content != "" && lblTwo.Content != "" &&
+               lblThree.Content != "" && lblFour.Content != "" &&
+               lblFive.Content != "" && lblSix.Content != "" && upperBonusCheck == 0)
+            {
+                //Check for upperSection Bonus
+                if (upperSectionTotal >= 63)
+                {
+                    upperSectionTotal += 35;
+                    lblBonus.Content = "35";
+                    lblUpperSection.Content = upperSectionTotal.ToString();
+                    return true;
+                }
+                else
+                {
+                    lblBonus.Content = "0";
+                    return false;
+                }
+            }
+            else
+                return false;
         }
 
 
@@ -320,6 +351,7 @@ namespace Yahztee.WPF
             {
                 lblOne.Content = UpdateUpperSection(1);
                 ResetTurn();
+                UpperBonusCheck();
                 turnsLeft--;
             }
         }
@@ -330,6 +362,7 @@ namespace Yahztee.WPF
             {
                 lblTwo.Content = UpdateUpperSection(2);
                 ResetTurn();
+                UpperBonusCheck();
                 turnsLeft--;
             }
         }
@@ -339,6 +372,7 @@ namespace Yahztee.WPF
             {
                 lblThree.Content = UpdateUpperSection(3);
                 ResetTurn();
+                UpperBonusCheck();
                 turnsLeft--;
             }
         }
@@ -348,6 +382,7 @@ namespace Yahztee.WPF
             {
                 lblFour.Content = UpdateUpperSection(4);
                 ResetTurn();
+                UpperBonusCheck();
                 turnsLeft--;
             }
         }
@@ -358,6 +393,7 @@ namespace Yahztee.WPF
             {
                 lblFive.Content = UpdateUpperSection(5);
                 ResetTurn();
+                UpperBonusCheck();
                 turnsLeft--;
             }
         }
@@ -368,6 +404,7 @@ namespace Yahztee.WPF
             {
                 lblSix.Content = UpdateUpperSection(6);
                 ResetTurn();
+                UpperBonusCheck();
                 turnsLeft--;
             }
         }
