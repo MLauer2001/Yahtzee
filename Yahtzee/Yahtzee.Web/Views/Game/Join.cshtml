@@ -44,7 +44,6 @@
             var name = "@usernames";
 
 
-
             @{
                 var scores = Model.Scorecard.GrandTotal;
                 int grandTotal = scores;
@@ -89,7 +88,7 @@
                         // Call the Send method on the hub.
                         //connection.invoke('sendmessage', name, messageInput.value);
                         connection.invoke('sendmessagetogroup', "@lobbyid", name, messageInput.value);
-
+                        
                         var element = document.getElementById('discussion');
                         element.scrollTop = element.scrollHeight;
 

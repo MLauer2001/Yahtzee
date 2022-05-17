@@ -69,12 +69,14 @@ namespace Yahztee.WPF
             if(userLobby.ScorecardId != Guid.Empty)
             {
                 this.scorecard = ScorecardManager.LoadById(userLobby.ScorecardId).Result;
+                userLobby.ScorecardId = scorecard.Id;
                 scorecard.UserId = user.Id;
                 scorecard.Username = user.Username;
             }
             else
             {
                 scorecard.Id = Guid.NewGuid();
+                userLobby.ScorecardId = scorecard.Id;
                 scorecard.UserId = user.Id;
                 scorecard.Username = user.Username;
                 ScorecardManager.Insert(scorecard);

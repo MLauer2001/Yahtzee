@@ -337,7 +337,7 @@ namespace Yahtzee.BL
         {
             try
             {
-                string[,] data = new string[scorecards.Count + 1, 5];
+                string[,] data = new string[scorecards.Count + 1, 16];
                 int counter = 0;
 
                 data[counter, 0] = "Username";

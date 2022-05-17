@@ -39,7 +39,7 @@ namespace Yahtzee.WPF
 
         private void btnJoinLobby_Click(object sender, RoutedEventArgs e)
         {
-
+            userLobby.Id = Guid.NewGuid();
             userLobby.LobbyId = lobbies[lbxLobbies.SelectedIndex].Id;
 
             YahtzeeCard yahtzee = new YahtzeeCard(userLobby);
@@ -53,6 +53,7 @@ namespace Yahtzee.WPF
             lbxLobbies.ItemsSource = null;
             lobbies = LobbyManager.Load().Result;
 
+            lbxLobbies.ItemsSource = lobbies;
             lbxLobbies.DisplayMemberPath = "LobbyName";
             lbxLobbies.SelectedValuePath = "Id";
             lbxLobbies.SelectedIndex = 0;

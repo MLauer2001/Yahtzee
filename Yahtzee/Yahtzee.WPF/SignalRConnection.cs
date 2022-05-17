@@ -32,8 +32,6 @@ namespace Yahtzee.WPF
         {
             try
             {
-                Console.WriteLine("Sending scorecard...");
-
                 _connection.InvokeAsync("SendTurn", userlobby);
             }
             catch (Exception ex)
