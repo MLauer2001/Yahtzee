@@ -52,7 +52,7 @@
         <Label x:Name="lblLowerSection" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="267,494,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White" Grid.Column="1"/>
         <Label Content="Bonus" IsEnabled="False" HorizontalAlignment="Left" Margin="187,418,0,0" VerticalAlignment="Top" Foreground="White" Width="49"/>
         <Label x:Name="lblBonus" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,418,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White" Grid.ColumnSpan="2"/>
-        <TextBlock HorizontalAlignment="Left"  Margin="23,415,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Grid.Column="1"><Run Text="35 points if total is 63 o"/><Run Text="r over"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left"  Margin="31,415,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Grid.Column="1"><Run Text="35 points if total is 63 o"/><Run Text="r over"/></TextBlock>
         <Button x:Name="btnYahtzeeBonus" IsEnabled="False" Content="Yahtzee Bonus" HorizontalAlignment="Left" Margin="339,457,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnChance_Click" Grid.Column="1"/>
         <Label x:Name="lblYahtzeeBonus" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="224,457,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White" Grid.Column="1"/>
         <Image x:Name="Die1" Source="/DiceImg/6.png" Width="84" Height="84" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="137,25,0,0" />

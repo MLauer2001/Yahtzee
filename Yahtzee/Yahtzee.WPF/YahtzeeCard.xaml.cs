@@ -60,8 +60,6 @@ namespace Yahztee.WPF
         User user = new User();
         Lobby lobby = new Lobby();
         Scorecard scorecard = new Scorecard();
-        SignalRConnection signalR = new SignalRConnection();
-
 
         private readonly ILogger<User> _logger;
 
@@ -93,7 +91,6 @@ namespace Yahztee.WPF
             }
                 
             lblUsername.Content = user.Username + "'s Card";
-            signalR.Start();
 
 
             dice[0] = new Die();
