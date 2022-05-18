@@ -156,7 +156,9 @@ namespace Yahztee.WPF
                     try
                     {
                         ScorecardManager.Update(scorecard);
-                        Log.Information(user.Username + " has finished their game with a total score of " + scorecard.GrandTotal);
+                        string message = user.Username + " has finished their game with a total score of " + scorecard.GrandTotal;
+                        SendMessageToGroup(message);
+                        Log.Information(message);
                         
                     }
                     catch (Exception ex)
@@ -894,11 +896,23 @@ namespace Yahztee.WPF
             }
         }
 
-        void SendMessageToChannel(string message)
+        private void SendMessageToChannel(string message)
         {
             try
             {
                 _connection.InvokeAsync("SendMessage", _connection.ConnectionId, message);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void SendMessageToGroup(string message)
+        {
+            try
+            {
+                _connection.InvokeAsync("SendMessageToGroup", lobby.Id, user.Username, message);
             }
             catch (Exception ex)
             {
