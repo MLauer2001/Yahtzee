@@ -203,6 +203,7 @@ namespace Yahztee.WPF
         {
             //Disable the buttons, rolls back at 3
             rollsLeft = 3;
+            lblRollsLeft.Content = "3";
             turnsLeft--;
 
             scorecard.GrandTotal = grandTotal;
@@ -702,6 +703,13 @@ namespace Yahztee.WPF
                         }
                     }
                     num++;
+                }
+                //Not a full house
+                if(turnTotal == 0)
+                {
+                    scorecard.FullHouse = turnTotal;
+                    lblFullHouse.Content = turnTotal.ToString();
+                    ResetTurn();
                 }
             }
         }
