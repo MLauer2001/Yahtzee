@@ -18,7 +18,7 @@
     <input type="text" id="message" />
     <input type="button" id="sendmessage" value="Send" />
     <input type="hidden" id="displayname" value="Test" />
-    <input type="button" id="sendturn" value="Send Turn" />
+    @*<input type="button" id="sendturn" value="Send Turn" />*@
     <ul id="discussion"></ul>
 </div>
 
@@ -98,12 +98,12 @@
                         event.preventDefault();
                     });
 
-                    document.getElementById('sendturn').addEventListener('click', function (event) {
+                    @*document.getElementById('sendturn').addEventListener('click', function (event) {
                         connection.invoke('sendturntogroup', "@lobbyid", name, score);
 
                         var element = document.getElementById('discussion');
                         element.scrollTop = element.scrollHeight;
-                    });
+                    });*@
                 })
                 .catch(error => {
                     console.error(error.message);

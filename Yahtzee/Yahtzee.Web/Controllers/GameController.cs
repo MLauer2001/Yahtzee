@@ -50,47 +50,54 @@ namespace Yahtzee.Web.Controllers
         // GET: LobbyController/Details/5
         public ActionResult Join(Guid id)
         {
-            HttpClient client = InitializeClient();
-            HttpResponseMessage response = client.GetAsync("Lobby/" + id).Result;
-
-            string result = response.Content.ReadAsStringAsync().Result;
-            Lobby lobby = JsonConvert.DeserializeObject<Lobby>(result);
-
-            GameVM gameVM = new GameVM();
-            string results = HttpContext.Session.GetString("user");
-            User user = JsonConvert.DeserializeObject<User>(results);
-
-            Scorecard scorecard = new Scorecard
+            if (Authenticate.IsAuthenticated(HttpContext))
             {
-                Id = Guid.NewGuid(),
-                UserId = user.Id,
-                Aces = 0,
-                Twos = 0,
-                Threes = 0,
-                Fours = 0,
-                Fives = 0,
-                Sixes = 0,
-                ThreeOfKind = 0,
-                FourOfKind = 0,
-                SmStraight = 0,
-                LgStraight = 0,
-                FullHouse = 0,
-                Chance = 0,
-                Yahtzee = 0,
-                Bonus = 0,
-                GrandTotal = 50
-            };
+                HttpClient client = InitializeClient();
+                HttpResponseMessage response = client.GetAsync("Lobby/" + id).Result;
 
-            bool rollback = false;
-            string serialziedResponse = JsonConvert.SerializeObject(scorecard);
-            var content = new StringContent(serialziedResponse);
-            HttpResponseMessage responses = client.PostAsync("Scorecard/" + rollback, content).Result;
+                string result = response.Content.ReadAsStringAsync().Result;
+                Lobby lobby = JsonConvert.DeserializeObject<Lobby>(result);
 
-            gameVM.Scorecard = scorecard;
-            gameVM.User = user;
-            gameVM.Lobby = lobby;
+                GameVM gameVM = new GameVM();
+                string results = HttpContext.Session.GetString("user");
+                User user = JsonConvert.DeserializeObject<User>(results);
 
-            return View("Join", gameVM);
+                Scorecard scorecard = new Scorecard
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = user.Id,
+                    Aces = 0,
+                    Twos = 0,
+                    Threes = 0,
+                    Fours = 0,
+                    Fives = 0,
+                    Sixes = 0,
+                    ThreeOfKind = 0,
+                    FourOfKind = 0,
+                    SmStraight = 0,
+                    LgStraight = 0,
+                    FullHouse = 0,
+                    Chance = 0,
+                    Yahtzee = 0,
+                    Bonus = 0,
+                    GrandTotal = 50
+                };
+
+                bool rollback = false;
+                string serialziedResponse = JsonConvert.SerializeObject(scorecard);
+                var content = new StringContent(serialziedResponse);
+                HttpResponseMessage responses = client.PostAsync("Scorecard/" + rollback, content).Result;
+
+                gameVM.Scorecard = scorecard;
+                gameVM.User = user;
+                gameVM.Lobby = lobby;
+
+                return View("Join", gameVM);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Player", new { returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request) });
+            }
         }
 
         // GET: LobbyController/Create
