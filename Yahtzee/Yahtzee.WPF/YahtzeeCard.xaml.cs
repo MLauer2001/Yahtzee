@@ -872,12 +872,12 @@ namespace Yahztee.WPF
 
             _connection.StartAsync();
 
-            string message = DateTime.Now.ToString() + ": Connected...";
+            string message = "has obtained a scorecard.";
             this.Title = "Connected...";
 
             try
             {
-                _connection.InvokeAsync("SendMessage", "UI", message);
+                _connection.InvokeAsync("SendMessage", user.Username, message);
             }
             catch (Exception ex)
             {
