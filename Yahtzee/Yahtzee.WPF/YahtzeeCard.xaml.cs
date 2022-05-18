@@ -877,7 +877,7 @@ namespace Yahztee.WPF
 
             try
             {
-                _connection.InvokeAsync("SendMessage", user.Username, message);
+                _connection.InvokeAsync("SendMessageToGroup", lobby.Id, user.Username, message);
             }
             catch (Exception ex)
             {
