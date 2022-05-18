@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,8 +58,9 @@ namespace Yahztee.WPF
         SignalRConnection signalR = new SignalRConnection();
 
 
-        private readonly ILogger<YahtzeeCard> _logger;
+        private readonly ILogger<User> _logger;
 
+       
         public YahtzeeCard(UserLobby userLobby)
         {
             InitializeComponent();
@@ -66,7 +68,10 @@ namespace Yahztee.WPF
             this.user = UserManager.LoadById(userLobby.UserId).Result;
             this.lobby = LobbyManager.LoadById(userLobby.LobbyId).Result;
 
-            if(userLobby.ScorecardId != Guid.Empty)
+            Log.Logger = new LoggerConfiguration().MinimumLevel.Debug()
+                .WriteTo.File("logs\\Log_UserTurn.txt", rollingInterval: RollingInterval.Day).CreateLogger();
+
+            if (userLobby.ScorecardId != Guid.Empty)
             {
                 this.scorecard = ScorecardManager.LoadById(userLobby.ScorecardId).Result;
                 userLobby.ScorecardId = scorecard.Id;
@@ -84,8 +89,6 @@ namespace Yahztee.WPF
                 
             lblUsername.Content = user.Username + "'s Card";
             signalR.Start();
-
-            //_logger = logger;
 
 
             dice[0] = new Die();
@@ -155,7 +158,8 @@ namespace Yahztee.WPF
                     try
                     {
                         ScorecardManager.Update(scorecard);
-                        _logger.LogInformation("{Username} completed their scorecard at {time}", user.Username, DateTime.Now);
+                        Log.Information(user.Username + " has finished their game with a total score of " + scorecard.GrandTotal);
+                        
                     }
                     catch (Exception ex)
                     {
@@ -177,7 +181,7 @@ namespace Yahztee.WPF
                 btnHold4.IsEnabled = false;
                 btnHold5.IsEnabled = false;
 
-                //_logger.LogInformation("{Username} updated their scorecard at {time}", user.Username, DateTime.Now);
+                Log.Information("{Username} updated their scorecard", user.Username);
             }
 
             btnOne.IsEnabled = true;
@@ -205,6 +209,7 @@ namespace Yahztee.WPF
             scorecard.GrandTotal = grandTotal;
             ScorecardManager.Update(scorecard);
             signalR.SendTurnToLobby(userLobby);
+
 
             btnHold1.IsEnabled = true;
             btnHold2.IsEnabled = true;

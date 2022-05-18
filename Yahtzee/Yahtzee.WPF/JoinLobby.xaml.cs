@@ -25,11 +25,13 @@ namespace Yahtzee.WPF
     {
         UserLobby userLobby = new UserLobby();
         List<Lobby> lobbies = new List<Lobby>();
+
         public JoinLobby(UserLobby userLobby)
         {
             InitializeComponent();
             this.userLobby = userLobby;
             lobbies = LobbyManager.Load().Result;
+
 
             lbxLobbies.ItemsSource = lobbies;
             lbxLobbies.DisplayMemberPath = "LobbyName";

@@ -9,6 +9,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Yahtzee.BL.Models;
+using Yahtzee.WPF;
 
 namespace Yahztee.WPF
 {
@@ -34,9 +36,12 @@ namespace Yahztee.WPF
 
             Configuration = configSettings;
 
-            Log.Logger = new LoggerConfiguration()
-                             .ReadFrom.Configuration(configSettings)
-                             .CreateLogger();
+            //Log.Logger = new LoggerConfiguration()
+            //                 .ReadFrom.Configuration(configSettings)
+            //                 .CreateLogger();
+
+            
+
 
             services.AddSingleton<YahtzeeCard>().AddLogging(configure => configure.AddConsole())
                                                .AddLogging(configure => configure.AddEventLog())
