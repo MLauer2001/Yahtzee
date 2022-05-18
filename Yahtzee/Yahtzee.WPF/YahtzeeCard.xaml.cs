@@ -210,7 +210,7 @@ namespace Yahztee.WPF
 
             scorecard.GrandTotal = grandTotal;
             ScorecardManager.Update(scorecard);
-            signalR.SendTurnToLobby(userLobby);
+            SendTurnToLobby(grandTotal);
 
 
             btnHold1.IsEnabled = true;
@@ -903,6 +903,18 @@ namespace Yahztee.WPF
             {
                 this.Title = "Testing";
                 SendMessageToChannel("Test!");
+            }
+        }
+
+        private void SendTurnToLobby(int grandTotal)
+        {
+            try
+            {
+                _connection.InvokeAsync("SendTurn", grandTotal);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }
