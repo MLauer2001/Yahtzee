@@ -15,9 +15,9 @@ namespace Yahztee.API.Hubs
             return Groups.AddToGroupAsync(Context.ConnectionId, group);
         }
 
-        public async Task SendMessage(string user, string score, string message)
+        public async Task SendMessage(string user, string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, score, message);
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
 
         public Task SendMessageToGroup(string group, string user, string message)

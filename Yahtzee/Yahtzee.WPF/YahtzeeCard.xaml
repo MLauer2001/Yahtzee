@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yahztee.WPF"
         mc:Ignorable="d"
-        Title="Yahtzee" Height="620" Width="900" Foreground="White">
+        Title="Yahtzee" Height="620" Width="900" Foreground="White" Loaded="Window_Loaded">
     <Grid Margin="0,0,0,-16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="157*"/>
+            <ColumnDefinition Width="293*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -22,51 +26,51 @@
         <Button x:Name="btnFour" Content="Fours" IsEnabled="False" HorizontalAlignment="Left" Margin="137,304,0,0" VerticalAlignment="Top" Height="25" Width="99" Background="White" Click="btnFour_Click"/>
         <Button x:Name="btnFive" Content="Fives" IsEnabled="False" HorizontalAlignment="Left" Margin="137,342,0,0" VerticalAlignment="Top" Height="25" Width="99" Click="btnFive_Click" Background="White"/>
         <Button x:Name="btnSix" Content="Sixes" IsEnabled="False" HorizontalAlignment="Left" Margin="137,379,0,0" VerticalAlignment="Top" Height="25" Width="99" Background="White" Click="btnSix_Click"/>
-        <Label Content="Upper Section Total" IsEnabled="False" HorizontalAlignment="Left" Margin="236,494,0,0" VerticalAlignment="Top" Foreground="White" Width="115"/>
-        <Label x:Name="lblUpperSection" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="362,494,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
-        <Label x:Name="lblSix" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,379,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
-        <Label x:Name="lblFive" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,342,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
-        <Label x:Name="lblFour" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,304,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
-        <Label x:Name="lblThree" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,262,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
-        <Label x:Name="lblTwo" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,223,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
-        <Label x:Name="lblOne" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,184,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
-        <Button x:Name="btn3ofKind" IsEnabled="False" Content="3 of a Kind" HorizontalAlignment="Left" Margin="653,184,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btn3ofKind_Click"/>
-        <Button x:Name="btn4ofKind" IsEnabled="False" Content="Four of a Kind" HorizontalAlignment="Left" Margin="653,223,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btn4ofKind_Click"/>
-        <Button x:Name="btnFullHouse" IsEnabled="False" Content="Full House" HorizontalAlignment="Left" Margin="653,262,0,0" VerticalAlignment="Top" Height="25" Width="110" Click="btnFullHouse_Click" Background="White"/>
-        <Button x:Name="btnSmStraight" IsEnabled="False" Content="Sm. Straight" HorizontalAlignment="Left" Margin="653,304,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnSmStraight_Click"/>
-        <Button x:Name="btnYahtzee" Content="Yahtzee!" IsEnabled="False" HorizontalAlignment="Left" Margin="653,379,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnYahtzee_Click"/>
-        <Label x:Name="lblYahtzee" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,379,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
-        <Label x:Name="lblLgStraight" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,342,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
-        <Label x:Name="lblSmStraight" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,304,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
-        <Label x:Name="lblFullHouse" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,262,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
-        <Label x:Name="lblFourofKind" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,223,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
-        <Label x:Name="lbl3ofKind" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,184,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
-        <Button x:Name="btnLgStraight" Content="Lg. Straight" IsEnabled="False" HorizontalAlignment="Left" Margin="653,342,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnLgStraight_Click"/>
-        <Button x:Name="btnChance" Content="Chance" IsEnabled="False" HorizontalAlignment="Left" Margin="653,418,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnChance_Click"/>
-        <Label x:Name="lblChance" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="538,418,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
-        <Label Content="Lower Section Total" IsEnabled="False" HorizontalAlignment="Left" Margin="461,494,0,0" VerticalAlignment="Top" Foreground="White" Width="115"/>
-        <Label x:Name="lblLowerSection" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="581,494,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
+        <Label Content="Upper Section Total" IsEnabled="False" HorizontalAlignment="Left" Margin="236,494,0,0" VerticalAlignment="Top" Foreground="White" Width="115" Grid.ColumnSpan="2"/>
+        <Label x:Name="lblUpperSection" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="48,494,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White" Grid.Column="1"/>
+        <Label x:Name="lblSix" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,379,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White" Grid.ColumnSpan="2"/>
+        <Label x:Name="lblFive" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,342,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White" Grid.ColumnSpan="2"/>
+        <Label x:Name="lblFour" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,304,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White" Grid.ColumnSpan="2"/>
+        <Label x:Name="lblThree" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,262,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White" Grid.ColumnSpan="2"/>
+        <Label x:Name="lblTwo" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,223,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White" Grid.ColumnSpan="2"/>
+        <Label x:Name="lblOne" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,184,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White" Grid.ColumnSpan="2"/>
+        <Button x:Name="btn3ofKind" IsEnabled="False" Content="3 of a Kind" HorizontalAlignment="Left" Margin="339,184,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btn3ofKind_Click" Grid.Column="1"/>
+        <Button x:Name="btn4ofKind" IsEnabled="False" Content="Four of a Kind" HorizontalAlignment="Left" Margin="339,223,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btn4ofKind_Click" Grid.Column="1"/>
+        <Button x:Name="btnFullHouse" IsEnabled="False" Content="Full House" HorizontalAlignment="Left" Margin="339,262,0,0" VerticalAlignment="Top" Height="25" Width="110" Click="btnFullHouse_Click" Background="White" Grid.Column="1"/>
+        <Button x:Name="btnSmStraight" IsEnabled="False" Content="Sm. Straight" HorizontalAlignment="Left" Margin="339,304,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnSmStraight_Click" Grid.Column="1"/>
+        <Button x:Name="btnYahtzee" Content="Yahtzee!" IsEnabled="False" HorizontalAlignment="Left" Margin="339,379,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnYahtzee_Click" Grid.Column="1"/>
+        <Label x:Name="lblYahtzee" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="224,379,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White" Grid.Column="1"/>
+        <Label x:Name="lblLgStraight" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="224,342,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White" Grid.Column="1"/>
+        <Label x:Name="lblSmStraight" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="224,304,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White" Grid.Column="1"/>
+        <Label x:Name="lblFullHouse" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="224,262,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White" Grid.Column="1"/>
+        <Label x:Name="lblFourofKind" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="224,223,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White" Grid.Column="1"/>
+        <Label x:Name="lbl3ofKind" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="224,184,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White" Grid.Column="1"/>
+        <Button x:Name="btnLgStraight" Content="Lg. Straight" IsEnabled="False" HorizontalAlignment="Left" Margin="339,342,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnLgStraight_Click" Grid.Column="1"/>
+        <Button x:Name="btnChance" Content="Chance" IsEnabled="False" HorizontalAlignment="Left" Margin="339,418,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnChance_Click" Grid.Column="1"/>
+        <Label x:Name="lblChance" Content="" IsEnabled="False" HorizontalAlignment="Left" Margin="224,418,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White" Grid.Column="1"/>
+        <Label Content="Lower Section Total" IsEnabled="False" HorizontalAlignment="Left" Margin="147,494,0,0" VerticalAlignment="Top" Foreground="White" Width="115" Grid.Column="1"/>
+        <Label x:Name="lblLowerSection" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="267,494,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White" Grid.Column="1"/>
         <Label Content="Bonus" IsEnabled="False" HorizontalAlignment="Left" Margin="187,418,0,0" VerticalAlignment="Top" Foreground="White" Width="49"/>
-        <Label x:Name="lblBonus" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,418,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White"/>
-        <TextBlock HorizontalAlignment="Left"  Margin="337,415,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102"><Run Text="35 points if total is 63 o"/><Run Text="r over"/></TextBlock>
-        <Button x:Name="btnYahtzeeBonus" IsEnabled="False" Content="Yahtzee Bonus" HorizontalAlignment="Left" Margin="653,457,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnChance_Click"/>
-        <Label x:Name="lblYahtzeeBonus" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="538,457,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White"/>
+        <Label x:Name="lblBonus" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="255,418,0,0" VerticalAlignment="Top" Width="77" Foreground="Black" Background="White" Grid.ColumnSpan="2"/>
+        <TextBlock HorizontalAlignment="Left"  Margin="23,415,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Grid.Column="1"><Run Text="35 points if total is 63 o"/><Run Text="r over"/></TextBlock>
+        <Button x:Name="btnYahtzeeBonus" IsEnabled="False" Content="Yahtzee Bonus" HorizontalAlignment="Left" Margin="339,457,0,0" VerticalAlignment="Top" Height="25" Width="110" Background="White" Click="btnChance_Click" Grid.Column="1"/>
+        <Label x:Name="lblYahtzeeBonus" IsEnabled="False" Content="" HorizontalAlignment="Left" Margin="224,457,0,0" VerticalAlignment="Top" Width="86" Foreground="Black" Background="White" Grid.Column="1"/>
         <Image x:Name="Die1" Source="/DiceImg/6.png" Width="84" Height="84" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="137,25,0,0" />
-        <Image x:Name="Die2" Source="/DiceImg/6.png" Width="84" Height="84" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="268,25,0,0"/>
-        <Image x:Name="Die3" Source="/DiceImg/6.png" Width="84" Height="84" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="405,25,0,0"/>
-        <Image x:Name="Die4" Source="/DiceImg/6.png" Width="84" Height="84" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="535,25,0,0"/>
-        <Image x:Name="Die5" Source="/DiceImg/6.png" Width="84" Height="84" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="669,25,0,0"/>
+        <Image x:Name="Die2" Source="/DiceImg/6.png" Width="84" Height="84" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="268,25,0,0" Grid.ColumnSpan="2"/>
+        <Image x:Name="Die3" Source="/DiceImg/6.png" Width="84" Height="84" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="91,25,0,0" Grid.Column="1"/>
+        <Image x:Name="Die4" Source="/DiceImg/6.png" Width="84" Height="84" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="221,25,0,0" Grid.Column="1"/>
+        <Image x:Name="Die5" Source="/DiceImg/6.png" Width="84" Height="84" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,25,0,0" Grid.Column="1"/>
         <Button x:Name="btnHold1" Content="Hold" HorizontalAlignment="Left" Margin="152,120,0,0" VerticalAlignment="Top" Width="56" Background="#FF3B40B8" BorderBrush="Black" Foreground="White" Click="btnHold1_Click"/>
-        <Button x:Name="btnHold2" Content="Hold" HorizontalAlignment="Left" Margin="283,120,0,0" VerticalAlignment="Top" Width="56" Background="#FF3B40B8" Foreground="White" BorderBrush="Black" Click="btnHold2_Click"/>
-        <Button x:Name="btnHold3" Content="Hold" HorizontalAlignment="Left" Margin="419,120,0,0" VerticalAlignment="Top" Width="56" Background="#FF3B40B8" BorderBrush="Black" Foreground="White" Click="btnHold3_Click"/>
-        <Button x:Name="btnHold4" Content="Hold" HorizontalAlignment="Left" Margin="553,120,0,0" VerticalAlignment="Top" Width="56" Background="#FF3B40B8" Foreground="White" BorderBrush="Black" Click="btnHold4_Click"/>
-        <Button x:Name="btnHold5" Content="Hold" HorizontalAlignment="Left" Margin="684,120,0,0" VerticalAlignment="Top" Width="56" Background="#FF3B40B8" BorderBrush="Black" Foreground="White" Click="btnHold5_Click"/>
-        <TextBlock HorizontalAlignment="Left"  Margin="431,454,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Text="50 points per additional Yahtzee"/>
-        <Button Content="Roll Dice" x:Name="btnRollDice" Click="RollDice_Click" HorizontalAlignment="Left" Margin="405,165,0,0" VerticalAlignment="Top" Height="26" Width="84" Background="#FF3B40B8" Foreground="White" BorderBrush="Black"/>
-        <Label x:Name="label" Content="Rolls Left:&#xD;&#xA;" HorizontalAlignment="Left" Margin="395,218,0,0" VerticalAlignment="Top" Foreground="White" Height="33" Width="66"/>
-        <Label x:Name="lblRollsLeft" Content="3" HorizontalAlignment="Left" Margin="461,218,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.49,0.156" Foreground="White"/>
-        <Label x:Name="label1" Content="Total" HorizontalAlignment="Left" Margin="362,555,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label x:Name="lblTotal" Content="" HorizontalAlignment="Left" Margin="416,550,0,0" VerticalAlignment="Top" Width="62" Background="White"/>
+        <Button x:Name="btnHold2" Content="Hold" HorizontalAlignment="Left" Margin="283,120,0,0" VerticalAlignment="Top" Width="56" Background="#FF3B40B8" Foreground="White" BorderBrush="Black" Click="btnHold2_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnHold3" Content="Hold" HorizontalAlignment="Left" Margin="105,120,0,0" VerticalAlignment="Top" Width="56" Background="#FF3B40B8" BorderBrush="Black" Foreground="White" Click="btnHold3_Click" Grid.Column="1"/>
+        <Button x:Name="btnHold4" Content="Hold" HorizontalAlignment="Left" Margin="239,120,0,0" VerticalAlignment="Top" Width="56" Background="#FF3B40B8" Foreground="White" BorderBrush="Black" Click="btnHold4_Click" Grid.Column="1"/>
+        <Button x:Name="btnHold5" Content="Hold" HorizontalAlignment="Left" Margin="370,120,0,0" VerticalAlignment="Top" Width="56" Background="#FF3B40B8" BorderBrush="Black" Foreground="White" Click="btnHold5_Click" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left"  Margin="117,454,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Text="50 points per additional Yahtzee" Grid.Column="1"/>
+        <Button Content="Roll Dice" x:Name="btnRollDice" Click="RollDice_Click" HorizontalAlignment="Left" Margin="91,165,0,0" VerticalAlignment="Top" Height="26" Width="84" Background="#FF3B40B8" Foreground="White" BorderBrush="Black" Grid.Column="1"/>
+        <Label x:Name="label" Content="Rolls Left:&#xD;&#xA;" HorizontalAlignment="Left" Margin="81,218,0,0" VerticalAlignment="Top" Foreground="White" Height="33" Width="66" Grid.Column="1"/>
+        <Label x:Name="lblRollsLeft" Content="3" HorizontalAlignment="Left" Margin="147,218,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.49,0.156" Foreground="White" Grid.Column="1"/>
+        <Label x:Name="label1" Content="Total" HorizontalAlignment="Left" Margin="48,555,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="1"/>
+        <Label x:Name="lblTotal" Content="" HorizontalAlignment="Left" Margin="102,550,0,0" VerticalAlignment="Top" Width="62" Background="White" Grid.Column="1"/>
         <Label x:Name="lblUsername" Content="" HorizontalAlignment="Left" Margin="46,550,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="White" FontSize="14" FontWeight="Bold"/>
     </Grid>
 </Window>

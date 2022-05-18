@@ -1,5 +1,6 @@
 ﻿using Castle.Core.Logging;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Serilog;
@@ -35,6 +36,10 @@ namespace Yahztee.WPF
         int upperSectionTotal = 0;
         int lowerSectionTotal = 0;
         int grandTotal = 0;
+        HubConnection _connection;
+
+        MySettings mySettings;
+        string APIAddress = "https://mryahtzeeapi.azurewebsites.net/GameHub";
 
         private int LowerSectionTotal
         {
@@ -848,5 +853,60 @@ namespace Yahztee.WPF
             }
         }
         #endregion
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            mySettings = App.Configuration.GetSection("MySettings").Get<MySettings>();
+            APIAddress = "https://mryahtzeeapi.azurewebsites.net/GameHub";
+            ConnectToChannel();
+
+        }
+
+        void ConnectToChannel()
+        {
+            _connection = new HubConnectionBuilder()
+                .WithUrl("https://mryahtzeeapi.azurewebsites.net/GameHub")
+                .Build();
+
+            _connection.On<string, string>("ReceiveMessage", (s1, s2) => OnSend(s1, s2));
+
+            _connection.StartAsync();
+
+            string message = DateTime.Now.ToString() + ": Connected...";
+            this.Title = "Connected...";
+
+            try
+            {
+                _connection.InvokeAsync("SendMessage", "UI", message);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        void SendMessageToChannel(string message)
+        {
+            try
+            {
+                _connection.InvokeAsync("SendMessage", _connection.ConnectionId, message);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void OnSend(string name, string message)
+        {
+            this.Title = message;
+            int number;
+
+            if(int.TryParse(message, out number))
+            {
+                this.Title = "Testing";
+                SendMessageToChannel("Test!");
+            }
+        }
     }
 }
