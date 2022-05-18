@@ -910,7 +910,7 @@ namespace Yahztee.WPF
         {
             try
             {
-                _connection.InvokeAsync("SendTurn", grandTotal);
+                _connection.InvokeAsync("SendTurn", lobby.Id, user.Username, grandTotal);
             }
             catch (Exception ex)
             {
