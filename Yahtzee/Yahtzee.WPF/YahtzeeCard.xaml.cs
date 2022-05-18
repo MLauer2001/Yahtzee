@@ -60,9 +60,6 @@ namespace Yahztee.WPF
         User user = new User();
         Lobby lobby = new Lobby();
         Scorecard scorecard = new Scorecard();
-
-        private readonly ILogger<User> _logger;
-
        
         public YahtzeeCard(UserLobby userLobby)
         {
@@ -910,7 +907,7 @@ namespace Yahztee.WPF
         {
             try
             {
-                _connection.InvokeAsync("SendTurn", lobby.Id, user.Username, grandTotal);
+                _connection.InvokeAsync("SendTurnToGroup", lobby.Id.ToString(), user.Username, grandTotal.ToString());
             }
             catch (Exception ex)
             {
